@@ -7,7 +7,15 @@ using UnityEngine;
 public abstract class HouseBase : MonoBehaviour, IHouse
 {
     public abstract int TotalCapacity { get; }
-    public int CurrentCapacity { get; protected set; }
+
+    [SerializeField]
+    private int m_currentCapacity = 0;
+    public int CurrentCapacity
+    {
+        get { return m_currentCapacity; }
+        set { m_currentCapacity = 0; }
+    }
+
     public double BreedRate { get; set; }
 
     Timer m_breedTimer = null;
@@ -33,5 +41,10 @@ public abstract class HouseBase : MonoBehaviour, IHouse
         {
 
         }
+    }
+
+    public virtual void AddPig()
+    {
+        CurrentCapacity++;
     }
 }
