@@ -16,11 +16,11 @@ public class FabricatorManager : MonoBehaviour
 
     public void CreatePig()
     {
-        int lowestCapacity = m_housingManager.Houses.Min(x => x.CurrentCapacity);
-        IHouse lowestHouse = m_housingManager.Houses.FirstOrDefault(x => x.CurrentCapacity == lowestCapacity);
+        //Find the house for the pig to go to and increment
+        IHouse lowestHouse = m_housingManager.Houses.Aggregate((x, y) => x.CurrentCapacity < y.CurrentCapacity ? x : y);
         if(lowestHouse != null)
         {
-            lowestHouse.AddPig();
+            lowestHouse.AddPigs(1);
         }
     }
 }

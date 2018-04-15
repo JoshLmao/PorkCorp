@@ -17,5 +17,5 @@ public interface IHouse
     /// </summary>
     double BreedRate { get; set; }
 
-    void AddPig();
+    void AddPigs(int amount);
 }

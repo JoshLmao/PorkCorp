@@ -11,6 +11,9 @@ public class HousingManager : MonoBehaviour
     [SerializeField]
     GameObject[] m_housePrefabs;
 
+    [SerializeField]
+    Transform m_housingParent;
+
     const int MAX_HOUSES = 4;
 
     public HousingManager()
@@ -42,7 +45,11 @@ public class HousingManager : MonoBehaviour
 
     void AddHouse(int houseIndex)
     {
+        if (m_housingParent == null)
+            Debug.LogError("Housing Parent is null!");
+
         GameObject lowestHouse = Instantiate(m_housePrefabs.FirstOrDefault());
+        lowestHouse.transform.SetParent(m_housingParent);
         Houses.Add(lowestHouse.GetComponent<IHouse>());
     }
 }

@@ -13,7 +13,7 @@ public abstract class HouseBase : MonoBehaviour, IHouse
     public int CurrentCapacity
     {
         get { return m_currentCapacity; }
-        set { m_currentCapacity = 0; }
+        set { m_currentCapacity = value; }
     }
 
     public double BreedRate { get; set; }
@@ -43,8 +43,8 @@ public abstract class HouseBase : MonoBehaviour, IHouse
         }
     }
 
-    public virtual void AddPig()
+    public virtual void AddPigs(int amount)
     {
-        CurrentCapacity++;
+        CurrentCapacity += amount;
     }
 }
