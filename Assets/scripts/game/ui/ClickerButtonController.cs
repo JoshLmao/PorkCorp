@@ -2,42 +2,57 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class ClickerButtonController : MonoBehaviour {
-
+public class ClickerButtonController : MonoBehaviour, IPointerDownHandler, IPointerUpHandler
+{
     [SerializeField]
     Button m_clickerBtn;
 
     bool m_isHoldingBtn = false;
     FabricatorManager m_fabricatorManager = null;
 
-    void Awake()
+    double m_autoClickerMultiplier = 0.0;
+
+    DateTime m_mouseDownTime = DateTime.MinValue;
+
+    #region MonoBehavious
+    private void Awake()
     {
         m_fabricatorManager = FindObjectOfType<FabricatorManager>();
         if (m_fabricatorManager == null)
             Debug.LogError("Unable to find fabricator manager! Can't create pigs on click");
     }
 
-    void Start ()
+    private void Start()
     {
-        if(m_clickerBtn != null)
-        {
-            m_clickerBtn.onClick.AddListener(OnClicked);
-        }
-        else
-        {
-            Debug.LogError("Unable to listen to click UI events. No Btn set!");
-        }
     }
 
-    void Update ()
+    private void Update()
     {
-		
-	}
+        if (m_isHoldingBtn && m_autoClickerMultiplier > 0.0)
+        {
+            m_fabricatorManager.CreatePig();
+        }
+    }
+    #endregion
 
-    private void OnClicked()
+    public void OnPointerDown(PointerEventData eventData)
     {
-        m_fabricatorManager.CreatePig();
+        m_isHoldingBtn = true;
+        m_mouseDownTime = DateTime.Now;
+    }
+
+    public void OnPointerUp(PointerEventData eventData)
+    {
+        //Will need diff method...
+        TimeSpan mouseDownDiff = DateTime.Now - m_mouseDownTime;
+        if (!m_isHoldingBtn || mouseDownDiff.TotalMilliseconds < 100)
+        {
+            m_fabricatorManager.CreatePig();
+        }
+
+        m_isHoldingBtn = false;
     }
 }
