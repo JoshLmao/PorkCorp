@@ -23,7 +23,7 @@ public class ApplicationController : MonoBehaviour
         {
             //Start new game
             m_housingManager.AddNewStartHouses();
-            m_moneyManager.Money = 0.0;
+            m_moneyManager.Money = 0;
         }
 	}
 

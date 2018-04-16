@@ -4,25 +4,23 @@ using UnityEngine;
 
 public class MoneyManager : MonoBehaviour {
 
-    public double Money { get; set; }
+    public int Money { get; set; }
 
     public MoneyManager()
     {
-        Money = 0.0;
+        Money = 0;
     }
 
     void Awake()
     {
-
     }
 
-	void Start ()
+    void Start()
     {
-		
-	}
-	
-	void Update ()
+    }
+
+    void Update()
     {
-		
-	}
+        
+    }
 }

@@ -50,6 +50,8 @@ public class HousingManager : MonoBehaviour
 
         GameObject lowestHouse = Instantiate(m_housePrefabs.FirstOrDefault());
         lowestHouse.transform.SetParent(m_housingParent);
+        lowestHouse.transform.localPosition = new Vector3(0f, 0f, 0f);
+
         Houses.Add(lowestHouse.GetComponent<IHouse>());
     }
 }
