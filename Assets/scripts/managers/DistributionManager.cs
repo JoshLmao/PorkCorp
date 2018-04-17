@@ -50,7 +50,7 @@ public class DistributionManager : MonoBehaviour
         m_sellUI.SetBoughtSellVehicles(BoughtVehicles);
     }
 
-    public void OnBuyVehicle(ISellVehicle sellVehicle)
+    public void BuyVehicle(ISellVehicle sellVehicle)
     {
         if (BoughtVehicles == null)
         {
@@ -59,6 +59,7 @@ public class DistributionManager : MonoBehaviour
         }
 
         BoughtVehicles.Add(sellVehicle);
+        m_sellUI.SetBoughtSellVehicles(BoughtVehicles);
     }
 
     public void SetVehicleLimit(int limit)
@@ -67,10 +68,5 @@ public class DistributionManager : MonoBehaviour
             return;
 
         VehicleLimit = limit;
-    }
-
-    public void HireVehicle(ISellVehicle vehicle)
-    {
-        BoughtVehicles.Add(vehicle);
     }
 }
