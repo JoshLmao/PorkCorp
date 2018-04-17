@@ -67,6 +67,10 @@ public class BoughtVehiclesUserControl : MonoBehaviour
     Button m_hireButton;
     Button m_upgradeButton;
 
+    private void Awake()
+    {
+    }
+
     private void Start()
     {
         m_vehicleNameText = transform.Find("Name").GetComponent<Text>();
@@ -85,6 +89,16 @@ public class BoughtVehiclesUserControl : MonoBehaviour
         m_iconImage.gameObject.SetActive(IsBought);
         m_sellRateText.gameObject.SetActive(IsBought);
         m_upgradeButton.gameObject.SetActive(IsBought);
+
+        Update();
+    }
+
+    void Update()
+    {
+        IsBought = IsBought;
+        VehicleName = VehicleName;
+        SellRatePerMinute = SellRatePerMinute;
+        IconSprite = IconSprite;
     }
 
     private void UpgradeBtnClicked()

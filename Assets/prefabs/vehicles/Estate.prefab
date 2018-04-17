@@ -22,7 +22,6 @@ GameObject:
   - component: {fileID: 33749294917879022}
   - component: {fileID: 23316773143782894}
   - component: {fileID: 65726723970650482}
-  - component: {fileID: 114090989539402646}
   m_Layer: 0
   m_Name: Estate
   m_TagString: Untagged
@@ -97,14 +96,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114090989539402646
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1082333097070028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 99c8d7864e03b604193d6e6bde45255e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
