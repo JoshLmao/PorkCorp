@@ -44,8 +44,8 @@ public abstract class HouseBase : MonoBehaviour, IHouse
     {
         if(PigsPerSecond > 0.0)
         {
-            if(CurrentCapacity + (int)PigsPerSecond <= TotalCapacity)
-                CurrentCapacity += (int)PigsPerSecond;
+            //if(CurrentCapacity + (int)PigsPerSecond <= TotalCapacity)
+            //    CurrentCapacity += (int)PigsPerSecond;
         }
     }
 
