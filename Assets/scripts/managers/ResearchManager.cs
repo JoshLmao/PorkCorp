@@ -12,7 +12,12 @@ public class ResearchManager : MonoBehaviour
         {
             return new List<IResearch>()
             {
-                new ValueResearch(),
+                /*Tier 1*/
+                new ValueResearch(1, 1),
+                /*Tier 2*/
+                new HouseExpansion(2, 1),
+                new DoubleValue(2, 2),
+                /*Tier 3*/
             };
         }
     }

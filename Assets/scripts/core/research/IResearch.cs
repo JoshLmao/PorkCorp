@@ -13,8 +13,20 @@ public interface IResearch
     /// </summary>
     int Order { get; }
 
+    /// <summary>
+    /// The display name of the research
+    /// </summary>
     string Name { get; }
+    /// <summary>
+    /// The display discription of the research
+    /// </summary>
     string Description { get; }
+    /// <summary>
+    /// The internal value used to do the research modification
+    /// </summary>
     double Value { get; }
+    /// <summary>
+    /// The cost in currency to buy the research
+    /// </summary>
     double Cost { get; }
 }

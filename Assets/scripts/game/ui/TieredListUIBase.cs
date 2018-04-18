@@ -33,7 +33,7 @@ public class TieredListUIBase : ListUIBase
             SetRectLocalPos(tierUI, currentY);
             currentY -= (tierUI.GetComponent<RectTransform>().rect.height + m_uiTierSpacing);
 
-            for (int entry = -1; entry < tiersAndEntryCounts[tier]; entry++)
+            for (int entry = 0; entry < tiersAndEntryCounts[tier]; entry++)
             {
                 GameObject ui = Instantiate(m_uiEntryPrefab, m_listParent);
                 SetRectLocalPos(ui, currentY);
