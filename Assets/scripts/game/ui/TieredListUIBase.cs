@@ -20,28 +20,35 @@ public class TieredListUIBase : ListUIBase
         else if (m_uiEntries.Count > 0)
             m_uiEntries.Clear();
 
-        float currentY = m_uiStartYPosition;
+        float currentY = m_uiStartLocalYPosition;
+        float newCanvasHeight = 0f;
         foreach (int tier in tiersAndEntryCounts.Keys)
         {
             GameObject tierUI = Instantiate(m_uiTierTitlePrefab, m_listParent);
             Text tierText = tierUI.GetComponent<Text>();
             tierText.text = "TIER " + tier;
 
-            SetRectLocalPos(tierUI, currentY);
-            currentY -= m_uiTierSpacing;
+            newCanvasHeight += tierUI.GetComponent<RectTransform>().rect.height + m_uiTierSpacing;
 
-            for (int entry = 0; entry < tiersAndEntryCounts[tier]; entry++)
+            SetRectLocalPos(tierUI, currentY);
+            currentY -= (tierUI.GetComponent<RectTransform>().rect.height + m_uiTierSpacing);
+
+            for (int entry = -1; entry < tiersAndEntryCounts[tier]; entry++)
             {
                 GameObject ui = Instantiate(m_uiEntryPrefab, m_listParent);
-
                 SetRectLocalPos(ui, currentY);
-                currentY -= m_uiEntrySpacing;
-                EntryAdded(ui, tier, entry);
+
+                float heightAndPadding = (ui.GetComponent<RectTransform>().rect.height + m_uiEntrySpacing);
+                currentY -= heightAndPadding;
+                newCanvasHeight += heightAndPadding;
+                EntryAdded(ui, tier, entry + 1);
             }
         }
+
+        SetRectHeight(newCanvasHeight);
     }
 
-    protected virtual void EntryAdded(GameObject entry, int tier, int entryIndex)
+    protected virtual void EntryAdded(GameObject entry, int tier, int order)
     {
 
     }

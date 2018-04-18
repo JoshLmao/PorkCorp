@@ -61,10 +61,10 @@ public class BuyVehicleUserControl : MonoBehaviour
         m_buyButton = transform.Find("BuyBtn").GetComponent<Button>();
         m_buyButton.onClick.AddListener(BuyBtnClicked);
 
-        Update();
+        UpdateValues();
     }
-
-    void Update()
+    
+    private void UpdateValues()
     {
         VehicleName = VehicleName;
         SellRatePerMinute = SellRatePerMinute;

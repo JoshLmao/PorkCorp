@@ -13,6 +13,8 @@ public class ResearchUserControl : MonoBehaviour
         set
         {
             m_name = value;
+            if(m_nameText != null)
+                m_nameText.text = value;
         }
     }
 
@@ -23,6 +25,8 @@ public class ResearchUserControl : MonoBehaviour
         set
         {
             m_description = value;
+            if (m_descText != null)
+                m_descText.text = value;
         }
     }
 
@@ -33,6 +37,8 @@ public class ResearchUserControl : MonoBehaviour
         set
         {
             m_cost = value;
+            if (m_costText != null)
+                m_costText.text = value.ToString();
         }
     }
 
@@ -40,7 +46,12 @@ public class ResearchUserControl : MonoBehaviour
     public Sprite Icon
     {
         get { return m_icon; }
-        set { m_icon = value; }
+        set
+        {
+            m_icon = value;
+            if (m_iconImage != null)
+                m_iconImage.sprite = value;
+        }
     }
 
     public IResearch DataContext { get; set; }
@@ -63,7 +74,7 @@ public class ResearchUserControl : MonoBehaviour
 
         m_buyResearchBtn.onClick.AddListener(OnBuyResearchClick);
 
-        Update();
+        UpdateValues();
     }
 
     private void OnBuyResearchClick()
@@ -72,7 +83,7 @@ public class ResearchUserControl : MonoBehaviour
             OnBuyResearch.Invoke(DataContext);
     }
 
-    private void Update()
+    private void UpdateValues()
     {
         Description = Description;
         Name = Name;

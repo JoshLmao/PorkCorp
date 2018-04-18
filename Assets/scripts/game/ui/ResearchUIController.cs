@@ -19,17 +19,25 @@ public class ResearchUIController : TieredListUIBase
         base.Start();
 
         Dictionary<int, int> tierAndEntryCount = new Dictionary<int, int>();
-        foreach(IResearch research in m_researchManager.AllResearch)
+        foreach (IResearch research in m_researchManager.AllResearch)
         {
-
+            if (tierAndEntryCount.ContainsKey(research.Tier))
+            {
+                if (tierAndEntryCount[research.Tier] < research.Order)
+                    tierAndEntryCount[research.Tier] = research.Order;
+            }
+            else
+            {
+                tierAndEntryCount.Add(research.Tier, research.Order);
+            }
         }
 
-        UpdateTieredList(null);
+        UpdateTieredList(tierAndEntryCount);
     }
 
     protected override void EntryAdded(GameObject entry, int tier, int entryIndex)
     {
-        IResearch research = null;
+        IResearch research = m_researchManager.AllResearch.FirstOrDefault(x => x.Tier == tier && x.Order == entryIndex);
 
         ResearchUserControl uc = entry.GetComponent<ResearchUserControl>();
         uc.DataContext = research;

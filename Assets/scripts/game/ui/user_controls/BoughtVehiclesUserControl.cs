@@ -90,10 +90,10 @@ public class BoughtVehiclesUserControl : MonoBehaviour
         m_sellRateText.gameObject.SetActive(IsBought);
         m_upgradeButton.gameObject.SetActive(IsBought);
 
-        Update();
+        UpdateValues();
     }
 
-    void Update()
+    void UpdateValues()
     {
         IsBought = IsBought;
         VehicleName = VehicleName;

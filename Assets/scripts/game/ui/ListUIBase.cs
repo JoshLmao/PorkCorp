@@ -14,10 +14,16 @@ public class ListUIBase : MonoBehaviour
     protected GameObject m_uiEntryPrefab;
 
     [SerializeField]
-    protected float m_uiStartYPosition = 0f;
+    protected float m_uiStartLocalYPosition = 0f;
 
     [SerializeField]
     protected float m_uiEntrySpacing = 10f;
+
+    [SerializeField]
+    float m_minRectHeight;
+
+    [SerializeField]
+    RectTransform m_resizeCanvas;
 
     protected List<GameObject> m_uiEntries = null;
 
@@ -47,18 +53,22 @@ public class ListUIBase : MonoBehaviour
         else if (m_uiEntries.Count > 0)
             m_uiEntries.Clear();
 
-        float currentY = m_uiStartYPosition;
+        float currentY = m_uiStartLocalYPosition;
+        float newCanvasHeight = 0f;
         for (int i = 0; i < entryCount; i++)
         {
             GameObject ui = Instantiate(m_uiEntryPrefab, m_listParent);
 
             SetRectLocalPos(ui, currentY);
-            //ui.GetComponent<RectTransform>().localPosition = new Vector3(ui.transform.localPosition.x, currentY, ui.transform.localPosition.z);
-            currentY -= m_uiEntrySpacing; //gap between UI
+            currentY -= (ui.GetComponent<RectTransform>().rect.height + m_uiEntrySpacing);
             EntryAdded(ui, i);
+
+            newCanvasHeight += ui.GetComponent<RectTransform>().rect.height + m_uiEntrySpacing;
 
             m_uiEntries.Add(ui);
         }
+
+        SetRectHeight(newCanvasHeight);
     }
 
     protected virtual void EntryAdded(GameObject entry, int index)
@@ -86,5 +96,13 @@ public class ListUIBase : MonoBehaviour
         List<GameObject> children = new List<GameObject>();
         foreach (Transform existingChildren in parent)
             Destroy(existingChildren.gameObject);
+    }
+
+    protected void SetRectHeight(float rectHeight)
+    {
+        if (rectHeight < m_minRectHeight)
+            rectHeight = m_minRectHeight;
+        RectTransform rect = m_resizeCanvas.GetComponent<RectTransform>();
+        rect.sizeDelta = new Vector2(0, rectHeight);
     }
 }
