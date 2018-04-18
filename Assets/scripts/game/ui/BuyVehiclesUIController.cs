@@ -21,7 +21,7 @@ public class BuyVehiclesUIController : ListUIBase
 
         m_buyControls.Clear();
 
-        UpdateVehicleList(m_allVehicles.Count);
+        UpdateList(m_allVehicles.Count);
     }
 
     protected override void EntryAdded(GameObject entry, int index)

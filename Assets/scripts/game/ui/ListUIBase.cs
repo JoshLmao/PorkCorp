@@ -17,7 +17,7 @@ public class ListUIBase : MonoBehaviour
     protected float m_uiStartYPosition = 0f;
 
     [SerializeField]
-    protected float m_uiSpacing = 10f;
+    protected float m_uiEntrySpacing = 10f;
 
     protected List<GameObject> m_uiEntries = null;
 
@@ -38,11 +38,9 @@ public class ListUIBase : MonoBehaviour
     {
     }
 
-    protected virtual void UpdateVehicleList(int entryCount)
+    protected virtual void UpdateList(int entryCount)
     {
-        List<GameObject> children = new List<GameObject>();
-        foreach (Transform existingChildren in m_listParent)
-            Destroy(existingChildren.gameObject);
+        DestroyChildren(m_listParent);
 
         if (m_uiEntries == null)
             m_uiEntries = new List<GameObject>();
@@ -54,8 +52,9 @@ public class ListUIBase : MonoBehaviour
         {
             GameObject ui = Instantiate(m_uiEntryPrefab, m_listParent);
 
-            ui.GetComponent<RectTransform>().localPosition = new Vector3(ui.transform.localPosition.x, currentY, ui.transform.localPosition.z);
-            currentY -= m_uiSpacing; //gap between UI
+            SetRectLocalPos(ui, currentY);
+            //ui.GetComponent<RectTransform>().localPosition = new Vector3(ui.transform.localPosition.x, currentY, ui.transform.localPosition.z);
+            currentY -= m_uiEntrySpacing; //gap between UI
             EntryAdded(ui, i);
 
             m_uiEntries.Add(ui);
@@ -75,5 +74,17 @@ public class ListUIBase : MonoBehaviour
     public virtual void OnHideUI()
     {
         this.gameObject.SetActive(false);
+    }
+
+    protected void SetRectLocalPos(GameObject ui, float yPos)
+    {
+        ui.GetComponent<RectTransform>().localPosition = new Vector3(ui.transform.localPosition.x, yPos, ui.transform.localPosition.z);
+    }
+
+    protected void DestroyChildren(Transform parent)
+    {
+        List<GameObject> children = new List<GameObject>();
+        foreach (Transform existingChildren in parent)
+            Destroy(existingChildren.gameObject);
     }
 }

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class BoughtVehiclesUIController : ListUIBase, ISellVehiclesUI
+public class BoughtVehiclesUIController : ListUIBase
 {
     [SerializeField]
     GameObject m_buyCanvas;
@@ -15,10 +15,6 @@ public class BoughtVehiclesUIController : ListUIBase, ISellVehiclesUI
     /// List of all instantiated UI buttons
     /// </summary>
     List<BoughtVehiclesUserControl> m_boughtVehiclesUCs = new List<BoughtVehiclesUserControl>();
-    /// <summary>
-    /// Current list of bought vehicles (dtos)
-    /// </summary>
-    List<ISellVehicle> m_currentBoughtVehicles = null;
 
     protected override void Awake()
     {
@@ -31,7 +27,7 @@ public class BoughtVehiclesUIController : ListUIBase, ISellVehiclesUI
     {
         base.Start();
         m_boughtVehiclesUCs.Clear();
-        UpdateVehicleList(m_distributionManager.VehicleLimit);
+        UpdateList(m_distributionManager.VehicleLimit);
     }
 
     protected override void Update()
@@ -39,17 +35,13 @@ public class BoughtVehiclesUIController : ListUIBase, ISellVehiclesUI
 
     }
 
-    public void SetBoughtSellVehicles(List<ISellVehicle> boughtVehicles)
-    {
-        m_currentBoughtVehicles = boughtVehicles;
-    }
 
     protected override void EntryAdded(GameObject entry, int index)
     {
         //Find dto that matches current index
         ISellVehicle foundVehicle = null;
-        if (m_currentBoughtVehicles != null && m_currentBoughtVehicles.Count > 0)
-            foundVehicle = m_currentBoughtVehicles.FirstOrDefault(x => x.VehicleIndex == index);
+        if (m_distributionManager.BoughtVehicles != null && m_distributionManager.BoughtVehicles.Count > 0)
+            foundVehicle = m_distributionManager.BoughtVehicles.FirstOrDefault(x => x.VehicleIndex == index);
 
         if (foundVehicle != null)
             entry.name = foundVehicle.Name;
@@ -86,6 +78,6 @@ public class BoughtVehiclesUIController : ListUIBase, ISellVehiclesUI
         m_buyCanvas.GetComponent<BuyVehiclesUIController>().OnSelectVehicleToHire -= OnHireSelectedVehicle;
 
         m_distributionManager.BuyVehicle(vehicle);
-        UpdateVehicleList(m_distributionManager.VehicleLimit);
+        UpdateList(m_distributionManager.VehicleLimit);
     }
 }

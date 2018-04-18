@@ -19,7 +19,6 @@ public class DistributionManager : MonoBehaviour
     List<GameObject> m_sellVehiclePrefabs;
 
     VehicleSpawnerController m_vehicleSpawner;
-    ISellVehiclesUI m_sellUI;
 
     public DistributionManager()
     {
@@ -29,7 +28,6 @@ public class DistributionManager : MonoBehaviour
     private void Awake()
     {
         m_vehicleSpawner = FindObjectOfType<VehicleSpawnerController>();
-        m_sellUI = FindObjectOfType<BoughtVehiclesUIController>();
     }
 
     private void Start ()
@@ -46,8 +44,6 @@ public class DistributionManager : MonoBehaviour
         {
             new Estate(0),
         };
-        
-        m_sellUI.SetBoughtSellVehicles(BoughtVehicles);
     }
 
     public void BuyVehicle(ISellVehicle sellVehicle)
@@ -59,7 +55,6 @@ public class DistributionManager : MonoBehaviour
         }
 
         BoughtVehicles.Add(sellVehicle);
-        m_sellUI.SetBoughtSellVehicles(BoughtVehicles);
     }
 
     public void SetVehicleLimit(int limit)
