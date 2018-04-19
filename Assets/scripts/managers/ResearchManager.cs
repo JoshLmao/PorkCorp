@@ -22,8 +22,11 @@ public class ResearchManager : MonoBehaviour
         }
     }
 
+    MoneyManager m_moneyManager = null;
+
     private void Awake()
     {
+        m_moneyManager = FindObjectOfType<MoneyManager>();
     }
 
     private void Start ()
@@ -36,6 +39,13 @@ public class ResearchManager : MonoBehaviour
 
     public void BuyResearch(IResearch research)
     {
-
+        if(m_moneyManager.Money >= research.Cost)
+        {
+            m_moneyManager.RemoveAmount(research.Cost);
+        }
+        else
+        {
+            Debug.Log("Unable to purchase research. Not enough money");
+        }
     }
 }

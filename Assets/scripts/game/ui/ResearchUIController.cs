@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using System;
 
 public class ResearchUIController : TieredListUIBase
 {
@@ -46,5 +47,12 @@ public class ResearchUIController : TieredListUIBase
         uc.Description = research != null ? research.Description : "Non desc";
         uc.Cost = research != null ? research.Cost : 0.0;
         uc.Icon = null;
+
+        uc.OnBuyResearch += OnPurchaseResearch;
+    }
+
+    private void OnPurchaseResearch(IResearch research)
+    {
+        m_researchManager.BuyResearch(research);
     }
 }

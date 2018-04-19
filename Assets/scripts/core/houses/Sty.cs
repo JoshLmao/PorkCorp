@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Sty : HouseBase
 {
-    public override int TotalCapacity { get { return HouseConstants.StyCapacity; } }
+    public override int TotalCapacity { get { return 250; } }
 
     public Sty()
     {

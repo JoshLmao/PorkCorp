@@ -4,5 +4,4 @@ using UnityEngine;
 
 public class HouseConstants
 {
-    public static int StyCapacity { get { return 500; } }
 }
