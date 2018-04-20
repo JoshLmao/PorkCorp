@@ -62,6 +62,9 @@ public class HousingManager : MonoBehaviour
 
     public void SetBoughtHouses(List<IHouse> boughtHouses)
     {
+        if (boughtHouses == null)
+            return;
+
         List<IHouse> oldHouses = BoughtHouses.ToList();
         BoughtHouses = boughtHouses;
         UpdateHouses(oldHouses);

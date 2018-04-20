@@ -6,8 +6,8 @@ using UnityEngine;
 
 public abstract class HouseBase : MonoBehaviour, IHouse
 {
+    public abstract string Name { get; }
     public virtual int TotalCapacity { get; private set; }
-
     public int HouseIndex { get; set; }
 
     [SerializeField]

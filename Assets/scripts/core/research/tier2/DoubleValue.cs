@@ -4,7 +4,9 @@ using UnityEngine;
 
 public class DoubleValue : ResearchBase
 {
-    public override string Name { get { return "Double Value"; } }
+    public static string NAME { get { return "Double Value"; } }
+
+    public override string Name { get { return NAME; } }
     public override string Description { get { return "Double the value of your pork!"; } }
     public override double Cost { get { return 5.0; } }
     public override double Value { get { return 5.0; } }

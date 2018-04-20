@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ public class ResearchManager : MonoBehaviour
 {
     public List<IResearch> BoughtResearch { get; private set; }
 
-    public List<IResearch> AllResearch
+    public static List<IResearch> ALL_RESEARCH
     {
         get
         {
@@ -27,6 +28,8 @@ public class ResearchManager : MonoBehaviour
     private void Awake()
     {
         m_moneyManager = FindObjectOfType<MoneyManager>();
+
+        BoughtResearch = new List<IResearch>();
     }
 
     private void Start ()
@@ -46,6 +49,18 @@ public class ResearchManager : MonoBehaviour
         else
         {
             Debug.Log("Unable to purchase research. Not enough money");
+        }
+    }
+
+    public void SetResearch(List<IResearch> boughtResearches)
+    {
+        if(boughtResearches == null)
+        {
+            BoughtResearch.Clear();
+        }
+        else
+        {
+            BoughtResearch = boughtResearches;
         }
     }
 }

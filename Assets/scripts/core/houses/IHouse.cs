@@ -5,6 +5,10 @@ using UnityEngine;
 public interface IHouse
 {
     /// <summary>
+    /// The unique name of the house
+    /// </summary>
+    string Name { get; }
+    /// <summary>
     /// The total number of pigs that can be inside the house
     /// </summary>
     int TotalCapacity { get; }

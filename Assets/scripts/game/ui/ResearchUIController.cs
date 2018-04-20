@@ -20,7 +20,7 @@ public class ResearchUIController : TieredListUIBase
         base.Start();
 
         Dictionary<int, int> tierAndEntryCount = new Dictionary<int, int>();
-        foreach (IResearch research in m_researchManager.AllResearch)
+        foreach (IResearch research in ResearchManager.ALL_RESEARCH)
         {
             if (tierAndEntryCount.ContainsKey(research.Tier))
             {
@@ -38,7 +38,7 @@ public class ResearchUIController : TieredListUIBase
 
     protected override void EntryAdded(GameObject entry, int tier, int entryIndex)
     {
-        IResearch research = m_researchManager.AllResearch.FirstOrDefault(x => x.Tier == tier && x.Order == entryIndex);
+        IResearch research = ResearchManager.ALL_RESEARCH.FirstOrDefault(x => x.Tier == tier && x.Order == entryIndex);
 
         ResearchUserControl uc = entry.GetComponent<ResearchUserControl>();
         uc.DataContext = research;

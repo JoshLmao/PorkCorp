@@ -40,10 +40,6 @@ public class DistributionManager : MonoBehaviour
 
     public void SetStartVehicles()
     {
-        BoughtVehicles = new List<ISellVehicle>()
-        {
-            new Estate(0),
-        };
     }
 
     public void BuyVehicle(ISellVehicle sellVehicle)
@@ -55,6 +51,21 @@ public class DistributionManager : MonoBehaviour
         }
 
         BoughtVehicles.Add(sellVehicle);
+    }
+
+    public void SetVehicles(List<ISellVehicle> boughtVehicles)
+    {
+        if(boughtVehicles == null)
+        {
+            BoughtVehicles = new List<ISellVehicle>()
+            {
+                new Estate(0),
+            };
+        }
+        else
+        {
+            BoughtVehicles = boughtVehicles;
+        }
     }
 
     public void SetVehicleLimit(int limit)
