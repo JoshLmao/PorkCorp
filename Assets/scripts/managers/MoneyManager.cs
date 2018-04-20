@@ -56,4 +56,9 @@ public class MoneyManager : MonoBehaviour
     {
         m_money -= (float)amount;
     }
+
+    public void SetSellValue(double value)
+    {
+        SellValue = value;
+    }
 }

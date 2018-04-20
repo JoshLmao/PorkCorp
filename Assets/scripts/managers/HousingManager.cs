@@ -6,7 +6,7 @@ using System.Linq;
 
 public class HousingManager : MonoBehaviour
 {
-    public List<IHouse> Houses { get; set; }
+    public List<IHouse> BoughtHouses { get; set; }
 
     [SerializeField]
     GameObject[] m_housePrefabs;
@@ -14,11 +14,13 @@ public class HousingManager : MonoBehaviour
     [SerializeField]
     Transform m_housingParent;
 
+    List<GameObject> m_createdHouses = new List<GameObject>();
+
     const int MAX_HOUSES = 4;
 
     public HousingManager()
     {
-        Houses = new List<IHouse>();
+        BoughtHouses = new List<IHouse>();
     }
 
     private void Start ()
@@ -34,24 +36,56 @@ public class HousingManager : MonoBehaviour
     /// </summary>
     public void AddNewStartHouses()
     {
-        if (Houses.Count >= MAX_HOUSES)
+        if (BoughtHouses.Count >= MAX_HOUSES)
             return;
 
-        if(Houses != null && Houses.Count > 0)
-            Houses.Clear();
+        if(BoughtHouses != null && BoughtHouses.Count > 0)
+            BoughtHouses.Clear();
 
-        AddHouse(0);
+        AddHouse(m_housePrefabs.FirstOrDefault().GetComponent<IHouse>(), 0);
     }
 
-    void AddHouse(int houseIndex)
+    IHouse AddHouse(IHouse house, int houseIndexPosition)
     {
         if (m_housingParent == null)
             Debug.LogError("Housing Parent is null!");
 
-        GameObject lowestHouse = Instantiate(m_housePrefabs.FirstOrDefault());
-        lowestHouse.transform.SetParent(m_housingParent);
-        lowestHouse.transform.localPosition = new Vector3(0f, 0f, 0f);
+        GameObject housePrefab = Instantiate(m_housePrefabs.FirstOrDefault(x => x.GetComponent<IHouse>().TotalCapacity == house.TotalCapacity));
+        housePrefab.transform.SetParent(m_housingParent);
+        housePrefab.transform.localPosition = new Vector3(0f, 0f, 0f);
+        m_createdHouses.Add(housePrefab);
 
-        Houses.Add(lowestHouse.GetComponent<IHouse>());
+        IHouse houseDto = housePrefab.GetComponent<IHouse>();
+        houseDto.HouseIndex = houseIndexPosition;
+        return houseDto;
+    }
+
+    public void SetBoughtHouses(List<IHouse> boughtHouses)
+    {
+        List<IHouse> oldHouses = BoughtHouses.ToList();
+        BoughtHouses = boughtHouses;
+        UpdateHouses(oldHouses);
+    }
+
+    void UpdateHouses(List<IHouse> previousHouses)
+    {
+        DestroyChildHouses();
+        m_createdHouses.Clear();
+
+        int houseIndexPos = 0;
+        foreach (IHouse house in BoughtHouses)
+        {
+            IHouse oldHouse = previousHouses.FirstOrDefault(x => x.HouseIndex == house.HouseIndex);
+            IHouse newHouse = AddHouse(house, houseIndexPos);
+        }
+    }
+
+    void DestroyChildHouses()
+    {
+        foreach(Transform t in m_housingParent)
+        {
+            Destroy(t.gameObject);
+        }
+        m_createdHouses.Clear();
     }
 }

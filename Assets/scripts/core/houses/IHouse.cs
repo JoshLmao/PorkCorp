@@ -16,6 +16,7 @@ public interface IHouse
     /// The rate that the pigs will breed at in this house
     /// </summary>
     double PigsPerSecond { get; set; }
+    int HouseIndex { get; set; }
 
     void AddPigs(int amount);
 }

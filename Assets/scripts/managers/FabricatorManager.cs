@@ -17,7 +17,7 @@ public class FabricatorManager : MonoBehaviour
     public void CreatePig()
     {
         //Find the house for the pig to go to and increment
-        IHouse lowestHouse = m_housingManager.Houses.Aggregate((x, y) => x.CurrentCapacity < y.CurrentCapacity ? x : y);
+        IHouse lowestHouse = m_housingManager.BoughtHouses.Aggregate((x, y) => x.CurrentCapacity < y.CurrentCapacity ? x : y);
         if(lowestHouse != null)
         {
             lowestHouse.AddPigs(1);

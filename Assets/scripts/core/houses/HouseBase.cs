@@ -8,6 +8,8 @@ public abstract class HouseBase : MonoBehaviour, IHouse
 {
     public virtual int TotalCapacity { get; private set; }
 
+    public int HouseIndex { get; set; }
+
     [SerializeField]
     private int m_currentCapacity = 0;
     public int CurrentCapacity
