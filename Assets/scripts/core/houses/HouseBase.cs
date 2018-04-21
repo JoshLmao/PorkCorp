@@ -4,21 +4,28 @@ using System.Collections.Generic;
 using System.Timers;
 using UnityEngine;
 
-public abstract class HouseBase : MonoBehaviour, IHouse
+public class HouseBase : MonoBehaviour
 {
-    public abstract string Name { get; }
-    public virtual int TotalCapacity { get; private set; }
-    public int HouseIndex { get; set; }
+    [SerializeField]
+    public string Name;
+
+    public int TotalCapacity { get { return HouseInfo.TotalCapacity; } }
+    public int HouseIndex
+    {
+        get { return HouseInfo.HouseIndex; }
+        set { HouseInfo.HouseIndex = value; }
+    }
 
     [SerializeField]
     private int m_currentCapacity = 0;
     public int CurrentCapacity
     {
-        get { return (int)m_currentCapacity; }
-        set { m_currentCapacity = value; }
+        get { return HouseInfo.CurrentCapacity; }
+        set { HouseInfo.CurrentCapacity = value; }
     }
 
     public double PigsPerSecond { get; set; }
+    public IHouse HouseInfo { get; private set; }
 
     Timer m_breedTimer = null;
     MoneyManager m_moneyManager = null;
@@ -62,6 +69,7 @@ public abstract class HouseBase : MonoBehaviour, IHouse
     public virtual void AddPigs(int amount)
     {
         CurrentCapacity += amount;
+
         UpdateBreedRate();
     }
 
@@ -75,5 +83,10 @@ public abstract class HouseBase : MonoBehaviour, IHouse
     double GetAmount()
     {
         return m_moneyManager.SellValue * (CurrentCapacity * Time.fixedDeltaTime);
+    }
+
+    public void SetInfo(IHouse houseInfo)
+    {
+        HouseInfo = houseInfo;
     }
 }

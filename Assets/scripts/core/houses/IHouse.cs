@@ -15,12 +15,12 @@ public interface IHouse
     /// <summary>
     /// The number of pigs currently inside this house
     /// </summary>
-    int CurrentCapacity { get; }
+    int CurrentCapacity { get; set; }
     /// <summary>
     /// The rate that the pigs will breed at in this house
     /// </summary>
     double PigsPerSecond { get; set; }
     int HouseIndex { get; set; }
 
-    void AddPigs(int amount);
+    void SetPrefabReference(HouseBase houseController);
 }

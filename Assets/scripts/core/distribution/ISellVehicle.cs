@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface ISellVehicle : IVehicle
+public interface ISellVehicle
 {
     /// <summary>
     /// The total cost to buy/upgrade vehicle

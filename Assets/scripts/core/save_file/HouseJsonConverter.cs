@@ -5,12 +5,12 @@ public class HouseJsonConverter : CustomConverterBase<IHouse>
 {
     protected override IHouse Create(Type objectType, JObject jObject)
     {
-        if (FieldExists("Name", jObject) && FieldExists("VehicleIndex", jObject))
+        if (FieldExists("Name", jObject))
         {
             string field = (string)jObject["Name"];
 
             if (field == Sty.NAME)
-                return null;
+                return new Sty();
             else
                 throw new NotImplementedException($"Implement other houses - Missing {field}");
         }

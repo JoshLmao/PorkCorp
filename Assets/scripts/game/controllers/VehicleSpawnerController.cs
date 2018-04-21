@@ -9,7 +9,7 @@ public class VehicleSpawnerController : MonoBehaviour {
 
     public void SpawnVehicle(ISellVehicle vehicle)
     {
-        GameObject spawnedVehicle = Instantiate(vehicle.Prefab, m_movingVehiclesParent.transform);
+        //GameObject spawnedVehicle = Instantiate(vehicle.Prefab, m_movingVehiclesParent.transform);
     }
 
     public void OnVehicleFinished()

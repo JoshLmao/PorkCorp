@@ -1,5 +1,6 @@
 ﻿using Newtonsoft.Json;
 using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -54,13 +55,12 @@ public class SaveManager : MonoBehaviour
         LoadData();
     }
 
-#if UNITY_IOS || UNITY_ANDROID
+#if (UNITY_IOS || UNITY_ANDROID) && !UNITY_EDITOR
     private void OnApplicationFocus(bool isFocused)
     {
-        if (!isFocused && m_saveCoroutine == null)
+        if (!isFocused)
         {
-            Debug.Log("Saving game...");
-            m_saveCoroutine = StartCoroutine(SaveData());
+            OnSaveFile();
         }
     }
 #endif
@@ -80,6 +80,7 @@ public class SaveManager : MonoBehaviour
         yield return SaveFile(m_mainFilePath, m_currentData);
         yield return SaveFile(m_vehiclesSavePath, m_vehicles);
         yield return SaveFile(m_researchSavePath, m_research);
+        Debug.Log(m_houses.Count);
         yield return SaveFile(m_housesSavePath, m_houses);
         
         //Debug.Log("Saving complete");
@@ -91,7 +92,7 @@ public class SaveManager : MonoBehaviour
         if (!File.Exists(file))
             File.Create(file).Close();
 
-        string json = JsonConvert.SerializeObject(obj, Formatting.Indented);
+        string json = JsonConvert.SerializeObject(obj, Formatting.Indented, new JsonSerializerSettings());
         File.WriteAllText(file, json);
         yield return true;
     }
@@ -138,7 +139,7 @@ public class SaveManager : MonoBehaviour
         if (m_currentData == null)
             m_currentData = new SaveFileDto();
 
-        m_houses = m_housingManager.BoughtHouses;
+        m_houses = m_housingManager.BoughtHouses.Keys.ToList();
         m_research = m_researchManager.BoughtResearch;
         m_vehicles = m_distributionManager.BoughtVehicles;
 
@@ -170,5 +171,14 @@ public class SaveManager : MonoBehaviour
         }
 
         return customConvertedObj;
+    }
+
+    public void OnSaveFile()
+    {
+        if (m_saveCoroutine == null)
+        {
+            Debug.Log("Saving game...");
+            m_saveCoroutine = StartCoroutine(SaveData());
+        }
     }
 }
