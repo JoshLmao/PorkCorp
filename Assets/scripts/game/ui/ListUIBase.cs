@@ -2,11 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ListUIBase : MonoBehaviour
+public class ListUIBase : UIBase
 {
-    [SerializeField]
-    bool m_hideOnStart = true;
-
     [SerializeField]
     protected Transform m_listParent;
 
@@ -27,13 +24,12 @@ public class ListUIBase : MonoBehaviour
 
     protected List<GameObject> m_uiEntries = null;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
+
         if (m_uiEntryPrefab == null)
             Debug.LogError("List UI entry prefab is null");
-
-        if(m_hideOnStart)
-            OnHideUI();
     }
 
     protected virtual void Start()
@@ -74,16 +70,6 @@ public class ListUIBase : MonoBehaviour
     protected virtual void EntryAdded(GameObject entry, int index)
     {
 
-    }
-
-    public virtual void OnShowUI()
-    {
-        this.gameObject.SetActive(true);
-    }
-
-    public virtual void OnHideUI()
-    {
-        this.gameObject.SetActive(false);
     }
 
     protected void SetRectLocalPos(GameObject ui, float yPos)

@@ -9,6 +9,10 @@ public interface IHouse
     /// </summary>
     string Name { get; }
     /// <summary>
+    /// The base cost to buy the house
+    /// </summary>
+    double BaseCost { get; }
+    /// <summary>
     /// The total number of pigs that can be inside the house
     /// </summary>
     int TotalCapacity { get; }
@@ -21,6 +25,4 @@ public interface IHouse
     /// </summary>
     double PigsPerSecond { get; set; }
     int HouseIndex { get; set; }
-
-    void SetPrefabReference(HouseBase houseController);
 }
