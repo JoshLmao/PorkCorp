@@ -11,8 +11,10 @@ public class HouseJsonConverter : CustomConverterBase<IHouse>
 
             if (field == Sty.NAME)
                 return new Sty();
+            else if (field == LargeShed.NAME)
+                return new LargeShed();
             else
-                throw new NotImplementedException($"Implement other houses - Missing {field}");
+                throw new NotImplementedException($"Implement other houses - Missing '{field}'");
         }
 
         return null;

@@ -21,7 +21,11 @@ public class HouseBase : MonoBehaviour
     public int CurrentCapacity
     {
         get { return HouseInfo.CurrentCapacity; }
-        set { HouseInfo.CurrentCapacity = value; }
+        set
+        {
+            m_currentCapacity = value;
+            HouseInfo.CurrentCapacity = value;
+        }
     }
 
     public double PigsPerSecond { get; set; }

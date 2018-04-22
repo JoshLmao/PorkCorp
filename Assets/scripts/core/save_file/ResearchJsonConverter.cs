@@ -15,7 +15,7 @@ public class ResearchJsonConverter : CustomConverterBase<IResearch>
             else if (field == DoubleValue.NAME)
                 return GetResearch(DoubleValue.NAME);
             else 
-                throw new NotImplementedException($"Implement other researches - Missing {field}");
+                throw new NotImplementedException($"Implement other researches - Missing '{field}'");
         }
 
         return null;

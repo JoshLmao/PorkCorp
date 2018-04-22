@@ -16,7 +16,7 @@ public class VehicleConverter : CustomConverterBase<ISellVehicle>
             else if (field == Truck.NAME)
                 return new Truck(vehicleIndex);
             else
-                throw new NotImplementedException($"Implement other vehicles - Missing {field}");
+                throw new NotImplementedException($"Implement other vehicles - Missing '{field}'");
         }
 
         return null;

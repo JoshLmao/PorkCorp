@@ -12,7 +12,7 @@ public class HousingManager : MonoBehaviour
         new LargeShed(),
     };
 
-    public Dictionary<IHouse, GameObject> BoughtHouses { get; private set; }
+    public Dictionary<int, GameObject> BoughtHouses { get; private set; }
 
     [SerializeField]
     GameObject[] m_housePrefabs;
@@ -23,13 +23,18 @@ public class HousingManager : MonoBehaviour
     [SerializeField]
     float m_paddingWidth = 0f;
 
-    List<GameObject> m_createdHouses = new List<GameObject>();
+    MoneyManager m_moneyManager;
 
     const int MAX_HOUSES = 4;
 
     public HousingManager()
     {
-        BoughtHouses = new Dictionary<IHouse, GameObject>(); 
+        BoughtHouses = new Dictionary<int, GameObject>();
+    }
+
+    private void Awake()
+    {
+        m_moneyManager = FindObjectOfType<MoneyManager>();
     }
 
     private void Start ()
@@ -53,7 +58,7 @@ public class HousingManager : MonoBehaviour
 
         IHouse house = ALL_HOUSES.FirstOrDefault(x => x.Name == Sty.NAME);
         GameObject prefab = AddHouse(house, 0);
-        BoughtHouses.Add(house, prefab);
+        BoughtHouses.Add(house.HouseIndex, prefab);
     }
 
     GameObject AddHouse(IHouse house, int houseIndexPosition)
@@ -64,10 +69,9 @@ public class HousingManager : MonoBehaviour
         GameObject housePrefab = Instantiate(m_housePrefabs.FirstOrDefault(x => x.GetComponent<HouseBase>().Name == house.Name));
         housePrefab.transform.SetParent(m_housingParent);
 
-        var prevHouse = BoughtHouses.FirstOrDefault(x => x.Key.HouseIndex == (houseIndexPosition - 1)).Value;
+        var prevHouse = BoughtHouses.FirstOrDefault(x => x.Value.GetComponent<HouseBase>().HouseIndex == (houseIndexPosition - 1)).Value;
         Vector3 newPos = prevHouse != null ? GetNewPosition(housePrefab, prevHouse) : Vector3.zero;
         housePrefab.transform.localPosition = newPos;
-        m_createdHouses.Add(housePrefab);
 
         HouseBase houseController = housePrefab.GetComponent<HouseBase>();
         houseController.SetInfo(house);
@@ -81,7 +85,20 @@ public class HousingManager : MonoBehaviour
     /// <param name="targetHouse">The house to upgrade the old one to</param>
     public void UpgradeHouse(IHouse house, IHouse targetHouse)
     {
-        
+        if (m_moneyManager.Money < house.BaseCost)
+            return;
+
+        if (BoughtHouses.ContainsKey(house.HouseIndex))
+        {
+            List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
+            houses.Remove(house);
+            houses.Add(targetHouse);
+
+            targetHouse.CurrentCapacity = house.CurrentCapacity;
+            targetHouse.HouseIndex = house.HouseIndex;
+
+            SetBoughtHouses(houses);
+        }
     }
 
     /// <summary>
@@ -100,24 +117,18 @@ public class HousingManager : MonoBehaviour
 
     void UpdateHouses(List<IHouse> newHouses)
     {
-        DestroyChildHouses();
-        m_createdHouses.Clear();
+        foreach(int houseIndex in BoughtHouses.Keys)
+        {
+            Destroy(BoughtHouses[houseIndex]);
+        }
+        BoughtHouses.Clear();
 
         int houseIndexPos = 0;
         foreach (IHouse house in newHouses)
         {
-            GameObject newHousePrefab = AddHouse(house, houseIndexPos);
-            BoughtHouses.Add(newHousePrefab.GetComponent<HouseBase>().HouseInfo, newHousePrefab);
+            GameObject newHousePrefab = AddHouse(house, house.HouseIndex);
+            BoughtHouses.Add(newHousePrefab.GetComponent<HouseBase>().HouseIndex, newHousePrefab);
         }
-    }
-
-    void DestroyChildHouses()
-    {
-        foreach(Transform t in m_housingParent)
-        {
-            Destroy(t.gameObject);
-        }
-        m_createdHouses.Clear();
     }
 
     Vector3 GetNewPosition(GameObject instHouse, GameObject previousInstHouse)

@@ -17,10 +17,17 @@ public class FabricatorManager : MonoBehaviour
     public void CreatePig()
     {
         //Find the house for the pig to go to and increment
-        HouseBase lowestHouse = m_housingManager.BoughtHouses.Aggregate((x, y) => x.Key.CurrentCapacity < y.Key.CurrentCapacity ? x : y).Value.GetComponent<HouseBase>();
-        if(lowestHouse != null)
+        HouseBase lowestHouse = m_housingManager.BoughtHouses.Aggregate(
+            (x, y) => x.Value.GetComponent<HouseBase>().CurrentCapacity < y.Value.GetComponent<HouseBase>().CurrentCapacity ? x : y
+            ).Value.GetComponent<HouseBase>();
+
+        if (lowestHouse != null)
         {
             lowestHouse.AddPigs(1);
+        }
+        else
+        {
+            Debug.Log("Unable to find lowest house to add pig");
         }
     }
 }

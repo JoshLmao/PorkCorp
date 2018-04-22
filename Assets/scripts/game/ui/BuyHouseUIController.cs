@@ -19,14 +19,15 @@ public class BuyHouseUIController : ListUIBase
     {
         base.Start();
 
-        UpdateList(HousingManager.ALL_HOUSES.Count);
+        UpdateList(HousingManager.ALL_HOUSES.Count - 1 - HouseToUpgrade.HouseIndex);
     }
 
     protected override void EntryAdded(GameObject entry, int index)
     {
         base.EntryAdded(entry, index);
 
-        IHouse house = HousingManager.ALL_HOUSES.ElementAt(index);
+        //Debug.Log($"{index} + {HouseToUpgrade.HouseIndex} + 1 = {index + HouseToUpgrade.HouseIndex + 1}");
+        IHouse house = HousingManager.ALL_HOUSES.ElementAt(index + HouseToUpgrade.HouseIndex + 1);
 
         BuyHouseUserControl uc = entry.GetComponent<BuyHouseUserControl>();
         uc.Name = house.Name;

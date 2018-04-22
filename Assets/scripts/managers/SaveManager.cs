@@ -139,7 +139,7 @@ public class SaveManager : MonoBehaviour
         if (m_currentData == null)
             m_currentData = new SaveFileDto();
 
-        m_houses = m_housingManager.BoughtHouses.Keys.ToList();
+        m_houses = m_housingManager.BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
         m_research = m_researchManager.BoughtResearch;
         m_vehicles = m_distributionManager.BoughtVehicles;
 
@@ -167,7 +167,7 @@ public class SaveManager : MonoBehaviour
         }
         catch (Exception e)
         {
-            Debug.Log($"Unable to load file '{path}'");
+            Debug.Log($"Unable to load file '{path}' - {Environment.NewLine}{e.ToString()}");
         }
 
         return customConvertedObj;
