@@ -10,6 +10,9 @@ public class HousingManager : MonoBehaviour
     {
         new Sty(),
         new LargeShed(),
+        new Bungalow(),
+        new Detatched(),
+        new Mansion(),
     };
 
     public Dictionary<int, GameObject> BoughtHouses { get; private set; }
@@ -66,7 +69,11 @@ public class HousingManager : MonoBehaviour
         if (m_housingParent == null)
             Debug.LogError("Housing Parent is null!");
 
-        GameObject housePrefab = Instantiate(m_housePrefabs.FirstOrDefault(x => x.GetComponent<HouseBase>().Name == house.Name));
+        GameObject prefab = m_housePrefabs.FirstOrDefault(x => x.GetComponent<HouseBase>().Name == house.Name);
+        if (prefab == null)
+            Debug.LogError($"Can't find prefab for House '{house.Name}'");
+
+        GameObject housePrefab = Instantiate(prefab);
         housePrefab.transform.SetParent(m_housingParent);
 
         var prevHouse = BoughtHouses.FirstOrDefault(x => x.Value.GetComponent<HouseBase>().HouseIndex == (houseIndexPosition - 1)).Value;
@@ -123,7 +130,6 @@ public class HousingManager : MonoBehaviour
         }
         BoughtHouses.Clear();
 
-        int houseIndexPos = 0;
         foreach (IHouse house in newHouses)
         {
             GameObject newHousePrefab = AddHouse(house, house.HouseIndex);

@@ -61,13 +61,13 @@ public class HousesUIController : UIBase
         BuyHouseUIController controller = m_buyHouseCanvas.GetComponent<BuyHouseUIController>();
         controller.HouseToUpgrade = currentHouse;
         controller.OnUpgradeHouse += OnUpgradeHouse;
-        m_buyHouseCanvas.gameObject.SetActive(true);
+        m_buyHouseCanvas.OnShowUI();
     }
 
     private void OnUpgradeHouse(IHouse prevHouse, IHouse upgradeToHouse)
     {
         m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnUpgradeHouse += OnUpgradeHouse;
-        m_buyHouseCanvas.gameObject.SetActive(false);
+        m_buyHouseCanvas.OnHideUI();
 
         m_housingManager.UpgradeHouse(prevHouse, upgradeToHouse);
 

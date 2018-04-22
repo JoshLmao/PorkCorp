@@ -9,6 +9,6 @@
 
     public double BaseCost { get { return 10.0; } }
 
-    public int TotalCapacity { get { return 1000; } }
+    public int TotalCapacity { get { return 500; } }
     public int CurrentCapacity { get; set; }
 }

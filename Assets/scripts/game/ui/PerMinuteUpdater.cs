@@ -9,6 +9,7 @@ public class PerMinuteUpdater : MonoBehaviour
     Text m_perMinText;
 
     MoneyManager m_moneyManager;
+    double m_previousMoney = 0.0;
 
     private void Awake()
     {
@@ -28,7 +29,6 @@ public class PerMinuteUpdater : MonoBehaviour
 
     private void Update ()
     {
-        int currentValue = m_moneyManager.Money;
     }
 
     IEnumerator UpdateMoneyCoroutine()
@@ -38,14 +38,14 @@ public class PerMinuteUpdater : MonoBehaviour
         float currentTime = Time.time;
         while (true)
         {
-            UpdateMoneyPerMinute();
+            UpdateMoneyPerMinute(0.0);
             currentTime += waitTimeMillis;
             yield return new WaitForFixedUpdate();
         }
     }
 
-    void UpdateMoneyPerMinute()
+    void UpdateMoneyPerMinute(double value)
     {
-        m_perMinText.text = 0.0 + "/ SEC";
+        m_perMinText.text = value + "/ SEC";
     }
 }

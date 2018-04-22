@@ -2712,7 +2712,7 @@ MonoBehaviour:
   m_uiStartLocalYPosition: 250
   m_uiEntrySpacing: 10
   m_minRectHeight: 0
-  m_resizeCanvas: {fileID: 0}
+  m_resizeCanvas: {fileID: 1669619936}
 --- !u!1 &770077961
 GameObject:
   m_ObjectHideFlags: 0
@@ -3336,6 +3336,9 @@ MonoBehaviour:
   m_housePrefabs:
   - {fileID: 1820817621240210, guid: 3b66c4183ff0d8e4ab38b6a8244c6dac, type: 2}
   - {fileID: 1045212054268204, guid: 39e21a5f49dada242a7de033015d5eff, type: 2}
+  - {fileID: 1089912562290386, guid: b64dbb9fa2e0c9948887e09256bc4feb, type: 2}
+  - {fileID: 1918979702363998, guid: 9efc801d7789dd74aa96f841ca1744d1, type: 2}
+  - {fileID: 1268031317579126, guid: 0d9af092c43319f47b918c6cdfa21262, type: 2}
   m_housingParent: {fileID: 1863076509}
   m_paddingWidth: 5
 --- !u!1 &1092704351
@@ -3719,7 +3722,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02859007dc7b25944949e619b885a544, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_perMinText: {fileID: 0}
+  m_perMinText: {fileID: 1209440077}
 --- !u!1001 &1219427246
 Prefab:
   m_ObjectHideFlags: 0
