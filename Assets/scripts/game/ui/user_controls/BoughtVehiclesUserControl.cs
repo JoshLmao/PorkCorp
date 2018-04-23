@@ -63,9 +63,12 @@ public class BoughtVehiclesUserControl : MonoBehaviour
     Text m_vehicleNameText;
     Image m_iconImage;
     Text m_sellRateText;
+    Image m_backgroundImage;
 
     Button m_hireButton;
     Button m_upgradeButton;
+
+    Color m_enabledColor;
 
     private void Awake()
     {
@@ -76,6 +79,8 @@ public class BoughtVehiclesUserControl : MonoBehaviour
         m_vehicleNameText = transform.Find("Name").GetComponent<Text>();
         m_iconImage = transform.Find("Icon").GetComponent<Image>();
         m_sellRateText = transform.Find("SellRate").GetComponent<Text>();
+        m_backgroundImage = transform.Find("Bg").GetComponent<Image>();
+        m_enabledColor = m_backgroundImage.color;
 
         m_hireButton = transform.Find("Hire").GetComponent<Button>();
         m_hireButton.onClick.AddListener(HireBtnClicked);
@@ -89,6 +94,14 @@ public class BoughtVehiclesUserControl : MonoBehaviour
         m_iconImage.gameObject.SetActive(IsBought);
         m_sellRateText.gameObject.SetActive(IsBought);
         m_upgradeButton.gameObject.SetActive(IsBought);
+
+        m_backgroundImage.color = IsBought ? m_enabledColor : new Color()
+        {
+            r = m_enabledColor.r,
+            g = m_enabledColor.g,
+            b = m_enabledColor.b,
+            a = 0.75f,
+        };
 
         UpdateValues();
     }

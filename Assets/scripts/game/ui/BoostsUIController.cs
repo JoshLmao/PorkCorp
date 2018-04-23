@@ -42,13 +42,11 @@ public class BoostsUIController : MonoBehaviour {
 
     public void OnShowBoostsMenu()
     {
-        m_showMenuBtn.gameObject.SetActive(false);
         this.gameObject.SetActive(true);
     }
 
     public void OnHideBoostsMenu()
     {
-        m_showMenuBtn.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }
 
