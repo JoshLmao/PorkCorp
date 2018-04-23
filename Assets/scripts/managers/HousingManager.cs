@@ -108,6 +108,13 @@ public class HousingManager : MonoBehaviour
         }
     }
 
+    public void AddHouse(IHouse upgradeToHouse)
+    {
+        List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
+        houses.Add(upgradeToHouse);
+        UpdateHouses(houses);
+    }
+
     /// <summary>
     /// From save file. Load and set previous bought houses
     /// </summary>
@@ -117,8 +124,6 @@ public class HousingManager : MonoBehaviour
         if (boughtHouses == null)
             return;
 
-        //List<IHouse> oldHouses = BoughtHouses.ToList();
-        //BoughtHouses = boughtHouses;
         UpdateHouses(boughtHouses);
     }
 
@@ -133,7 +138,9 @@ public class HousingManager : MonoBehaviour
         foreach (IHouse house in newHouses)
         {
             GameObject newHousePrefab = AddHouse(house, house.HouseIndex);
-            BoughtHouses.Add(newHousePrefab.GetComponent<HouseBase>().HouseIndex, newHousePrefab);
+
+            HouseBase houseBase = newHousePrefab.GetComponent<HouseBase>();
+            BoughtHouses.Add(houseBase.HouseIndex, newHousePrefab);
         }
     }
 
@@ -145,7 +152,7 @@ public class HousingManager : MonoBehaviour
         Vector3 prevHousePos = previousInstHouse.transform.localPosition;
         //Prev house position + (half of prev house width) + padding + (half of new house width)
         Vector3 newHousePos = new Vector3(prevHousePos.x + (prevHouseWidth / 2) + m_paddingWidth + (newHouseWidth / 2), prevHousePos.y, prevHousePos.z);
-        Debug.Log(newHousePos);
+
         return newHousePos;
     }
 }

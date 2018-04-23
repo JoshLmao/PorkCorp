@@ -7,8 +7,13 @@ public class BuyHouseUIController : ListUIBase
     HousingManager m_housingManager;
 
     public IHouse HouseToUpgrade { get; set; }
+    /// <summary>
+    /// The index in the row of houses the current house is
+    /// </summary>
+    public int HouseIndex { get; set;}
 
     public event Action<IHouse, IHouse> OnUpgradeHouse;
+    public event Action<IHouse> OnBuildHouse;
 
     int m_startFromIndex = 0;
 
@@ -16,8 +21,8 @@ public class BuyHouseUIController : ListUIBase
     {
         base.OnShowUI();
 
-        m_startFromIndex = HousingManager.ALL_HOUSES.IndexOf(HousingManager.ALL_HOUSES.FirstOrDefault(x => x.Name == HouseToUpgrade.Name));
-        Debug.Log(m_startFromIndex);
+        //Index of list of all houses to start from. Eg, 0 draws all houses
+        m_startFromIndex = HouseToUpgrade != null ? HousingManager.ALL_HOUSES.IndexOf(HousingManager.ALL_HOUSES.FirstOrDefault(x => x.Name == HouseToUpgrade.Name)) : 0;
         UpdateList(HousingManager.ALL_HOUSES.Count - m_startFromIndex - 1);
     }
 
@@ -37,7 +42,15 @@ public class BuyHouseUIController : ListUIBase
 
     private void OnBuyHouse(IHouse upgradeToHouse)
     {
-        upgradeToHouse.HouseIndex = HouseToUpgrade.HouseIndex;
-        OnUpgradeHouse?.Invoke(HouseToUpgrade, upgradeToHouse);
+        if (HouseToUpgrade != null)
+        {
+            upgradeToHouse.HouseIndex = HouseToUpgrade.HouseIndex;
+            OnUpgradeHouse?.Invoke(HouseToUpgrade, upgradeToHouse);
+        }
+        else
+        {
+            upgradeToHouse.HouseIndex = HouseIndex;
+            OnBuildHouse?.Invoke(upgradeToHouse);
+        }
     }
 }

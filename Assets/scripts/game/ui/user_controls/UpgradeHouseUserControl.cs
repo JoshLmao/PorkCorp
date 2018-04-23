@@ -52,14 +52,26 @@ public class UpgradeHouseUserControl : MonoBehaviour
         }
     }
 
-    public IHouse DataContext { get; set; }
+    IHouse m_dataContext;
+    public IHouse DataContext
+    {
+        get { return m_dataContext; }
+        set
+        {
+            m_dataContext = value;
+            UpdateValues();
+        }
+    }
+    public int HouseIndex { get; set; } = -1;
 
     public event Action<IHouse> OnUpgradeHouseClicked;
+    public event Action<int> OnBuildHouseClicked;
 
     Text m_houseNameText;
     Text m_capacityText;
     Image m_houseIcon;
     Button m_upgradeBtn;
+    Button m_buildBtn;
 
     private void Start()
     {
@@ -70,7 +82,15 @@ public class UpgradeHouseUserControl : MonoBehaviour
         m_upgradeBtn = transform.Find("UpgradeBtn").GetComponent<Button>();
         m_upgradeBtn.onClick.AddListener(OnUpgradeBtnClicked);
 
+        m_buildBtn = transform.Find("BuildBtn").GetComponent<Button>();
+        m_buildBtn.onClick.AddListener(OnBuildBtnClicked);
+
         UpdateValues();
+    }
+
+    private void OnBuildBtnClicked()
+    {
+        OnBuildHouseClicked?.Invoke(HouseIndex);
     }
 
     private void OnUpgradeBtnClicked()
@@ -83,6 +103,17 @@ public class UpgradeHouseUserControl : MonoBehaviour
         UpdateCapacity();
         Name = Name;
         Icon = Icon;
+
+        //If one null, all should be null
+        if (m_houseNameText == null)
+            return;
+
+        bool hasHouseBuilt = DataContext != null;
+        m_houseNameText.gameObject.SetActive(hasHouseBuilt);
+        m_capacityText.gameObject.SetActive(hasHouseBuilt);
+        m_houseIcon.gameObject.SetActive(hasHouseBuilt);
+        m_upgradeBtn.gameObject.SetActive(hasHouseBuilt);
+        m_buildBtn.gameObject.SetActive(!hasHouseBuilt);
     }
 
     void UpdateCapacity()

@@ -14,19 +14,29 @@ public class HousesUIController : UIBase
     [SerializeField]
     UpgradeHouseUserControl m_houseOne;
 
-    bool m_isListening;
+    [SerializeField]
+    UpgradeHouseUserControl m_houseTwo;
 
+    [SerializeField]
+    UpgradeHouseUserControl m_houseThree;
+
+    [SerializeField]
+    UpgradeHouseUserControl m_houseFour;
+
+    bool m_isListening;
 
     protected override void Awake()
     {
         base.Awake();
 
         m_housingManager = FindObjectOfType<HousingManager>();
+
+        UpdateHouses();
     }
 
     private void Start()
     {
-        UpdateHouses();
+        
     }
 
     private void Update()
@@ -37,23 +47,48 @@ public class HousesUIController : UIBase
             m_houseOne.CurrentCapacity = house.CurrentCapacity;
         }
     }
-        void UpdateHouses()
-    {
-        if (m_housingManager.BoughtHouses.Count >= 1)
-        {
-            IHouse house = m_housingManager.BoughtHouses.Values.ElementAt(0).GetComponent<HouseBase>().HouseInfo;
-            m_houseOne.Name = house.Name;
-            m_houseOne.TotalCapacity = house.TotalCapacity;
-            m_houseOne.CurrentCapacity = house.CurrentCapacity;
-            m_houseOne.DataContext = house;
-            //m_houseOne.Icon = null;
 
-            if (!m_isListening)
+    void UpdateHouses()
+    {
+        SetUI(0, m_houseOne);
+        SetUI(1, m_houseTwo);
+        SetUI(2, m_houseThree);
+        SetUI(3, m_houseFour);
+    }
+
+    void SetUI(int houseIndex, UpgradeHouseUserControl uc)
+    {
+        //Unbind incase it already is
+        uc.OnUpgradeHouseClicked -= OnUpgradeHouseClicked;
+        uc.OnBuildHouseClicked -= OnBuildHouseClicked;
+
+        if(m_housingManager.BoughtHouses.Count > houseIndex)
+        {
+            GameObject element = m_housingManager.BoughtHouses.Values.ElementAt(houseIndex);
+            IHouse house = element.GetComponent<HouseBase>().HouseInfo;
+            if (house != null)
             {
-                m_houseOne.OnUpgradeHouseClicked += OnUpgradeHouseClicked;
-                m_isListening = true;
+                uc.Name = house.Name;
+                uc.TotalCapacity = house.TotalCapacity;
+                uc.CurrentCapacity = house.CurrentCapacity;
+                uc.DataContext = house;
             }
         }
+
+        uc.HouseIndex = houseIndex;
+        uc.OnUpgradeHouseClicked += OnUpgradeHouseClicked;
+        uc.OnBuildHouseClicked += OnBuildHouseClicked;
+    }
+
+    private void OnBuildHouseClicked(int houseIndex)
+    {
+        if (houseIndex < 0)
+            return;
+
+        BuyHouseUIController controller = m_buyHouseCanvas.GetComponent<BuyHouseUIController>();
+        controller.HouseIndex = houseIndex;
+        controller.OnBuildHouse += OnBuildHouse;
+        m_buyHouseCanvas.OnShowUI();
     }
 
     private void OnUpgradeHouseClicked(IHouse currentHouse)
@@ -64,9 +99,19 @@ public class HousesUIController : UIBase
         m_buyHouseCanvas.OnShowUI();
     }
 
+    private void OnBuildHouse(IHouse upgradeToHouse)
+    {
+        m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnBuildHouse -= OnBuildHouse;
+        m_buyHouseCanvas.OnHideUI();
+
+        m_housingManager.AddHouse(upgradeToHouse);
+
+        UpdateHouses();
+    }
+
     private void OnUpgradeHouse(IHouse prevHouse, IHouse upgradeToHouse)
     {
-        m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnUpgradeHouse += OnUpgradeHouse;
+        m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnUpgradeHouse -= OnUpgradeHouse;
         m_buyHouseCanvas.OnHideUI();
 
         m_housingManager.UpgradeHouse(prevHouse, upgradeToHouse);
