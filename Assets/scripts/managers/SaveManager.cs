@@ -80,7 +80,6 @@ public class SaveManager : MonoBehaviour
         yield return SaveFile(m_mainFilePath, m_currentData);
         yield return SaveFile(m_vehiclesSavePath, m_vehicles);
         yield return SaveFile(m_researchSavePath, m_research);
-        Debug.Log(m_houses.Count);
         yield return SaveFile(m_housesSavePath, m_houses);
         
         //Debug.Log("Saving complete");
@@ -123,7 +122,7 @@ public class SaveManager : MonoBehaviour
             }
 
             m_vehicles = LoadCustom<List<ISellVehicle>>(m_vehiclesSavePath, new VehicleConverter());
-            m_research = LoadCustom<List<IResearch>>(m_researchSavePath, new ResearchJsonConverter());
+            m_research = LoadCustom<List<IResearch>>(m_researchSavePath, new ResearchJsonConverter(m_researchManager));
             m_houses = LoadCustom<List<IHouse>>(m_housesSavePath, new HouseJsonConverter());
         }
 
@@ -140,7 +139,7 @@ public class SaveManager : MonoBehaviour
             m_currentData = new SaveFileDto();
 
         m_houses = m_housingManager.BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
-        m_research = m_researchManager.BoughtResearch;
+        m_research = m_researchManager.AllResearch;
         m_vehicles = m_distributionManager.BoughtVehicles;
 
         m_currentData.Money = m_moneyManager.Money;

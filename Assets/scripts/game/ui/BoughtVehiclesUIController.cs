@@ -35,7 +35,6 @@ public class BoughtVehiclesUIController : ListUIBase
 
     }
 
-
     protected override void EntryAdded(GameObject entry, int index)
     {
         //Find dto that matches current index

@@ -10,11 +10,27 @@ public abstract class ResearchBase : IResearch
     public abstract string Name { get; }
     public abstract string Description { get; }
     public abstract double Cost { get; }
-    public abstract double Value { get; }
+
+    public abstract int AmountBought { get; protected set; }
+    public abstract int MaxAmountAllowed { get; }
+
+    public abstract double ModifyValue { get; }
 
     public ResearchBase(int tier, int order)
     {
         Tier = tier;
         Order = order;
+
+        AmountBought = 0;
+    }
+
+    public void Buy()
+    {
+        AmountBought++;
+    }
+
+    public virtual void SetLoadedValues(int amountBought)
+    {
+        AmountBought = amountBought;
     }
 }

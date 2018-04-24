@@ -19,8 +19,37 @@ public class ResearchUIController : TieredListUIBase
     {
         base.Start();
 
+        UpdateList();
+        Debug.Log("Loaded List");
+    }
+
+    protected override void EntryAdded(GameObject entry, int tier, int entryIndex)
+    {
+        IResearch research = m_researchManager.AllResearch.FirstOrDefault(x => x.Tier == tier && x.Order == entryIndex);
+    
+        ResearchUserControl uc = entry.GetComponent<ResearchUserControl>();
+        uc.DataContext = research;
+
+        uc.Name = research != null ? research.Name : "Empty";
+        uc.Description = research != null ? research.Description : "Non description";
+        uc.Cost = research != null ? research.Cost : 0.0;
+        uc.Icon = null;
+        uc.AmountBought = research != null ? research.AmountBought : 0;
+        uc.MaxAmountAllowed = research != null ? research.MaxAmountAllowed : 1;
+
+        uc.OnBuyResearch += OnPurchaseResearch;
+    }
+
+    private void OnPurchaseResearch(IResearch research)
+    {
+        m_researchManager.BuyResearch(research);
+        UpdateList();
+    }
+
+    void UpdateList()
+    {
         Dictionary<int, int> tierAndEntryCount = new Dictionary<int, int>();
-        foreach (IResearch research in ResearchManager.ALL_RESEARCH)
+        foreach (IResearch research in m_researchManager.AllResearch)
         {
             if (tierAndEntryCount.ContainsKey(research.Tier))
             {
@@ -34,25 +63,5 @@ public class ResearchUIController : TieredListUIBase
         }
 
         UpdateTieredList(tierAndEntryCount);
-    }
-
-    protected override void EntryAdded(GameObject entry, int tier, int entryIndex)
-    {
-        IResearch research = ResearchManager.ALL_RESEARCH.FirstOrDefault(x => x.Tier == tier && x.Order == entryIndex);
-
-        ResearchUserControl uc = entry.GetComponent<ResearchUserControl>();
-        uc.DataContext = research;
-
-        uc.Name = research != null ? research.Name : "Empty";
-        uc.Description = research != null ? research.Description : "Non desc";
-        uc.Cost = research != null ? research.Cost : 0.0;
-        uc.Icon = null;
-
-        uc.OnBuyResearch += OnPurchaseResearch;
-    }
-
-    private void OnPurchaseResearch(IResearch research)
-    {
-        m_researchManager.BuyResearch(research);
     }
 }

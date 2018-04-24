@@ -5,10 +5,16 @@ using UnityEngine;
 
 public class HouseExpansion : ResearchBase
 {
-    public override string Name { get { return "House Expansion"; } }
+    public static string NAME { get { return "House Expansion"; } }
+
+    public override string Name { get { return NAME; } }
     public override string Description { get { return "Expand your houses by x%"; } }
     public override double Cost { get { return 10.0; } }
-    public override double Value { get { return 10.0; } }
+
+    public override double ModifyValue { get { return 10.0; } }
+
+    public override int AmountBought { get; protected set; }
+    public override int MaxAmountAllowed { get { return 10; } }
 
     public HouseExpansion(int tier, int order) : base(tier, order)
     {

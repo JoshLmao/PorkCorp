@@ -21,12 +21,28 @@ public interface IResearch
     /// The display discription of the research
     /// </summary>
     string Description { get; }
+
     /// <summary>
     /// The internal value used to do the research modification
     /// </summary>
-    double Value { get; }
+    double ModifyValue { get; }
     /// <summary>
     /// The cost in currency to buy the research
     /// </summary>
     double Cost { get; }
+
+    /// <summary>
+    /// The number of times this research has been bought
+    /// </summary>
+    int AmountBought { get; }
+    /// <summary>
+    /// The maximum number of times this research can be bought
+    /// </summary>
+    int MaxAmountAllowed { get; }
+
+    void Buy();
+    /// <summary>
+    /// Set loaded values from file
+    /// </summary>
+    void SetLoadedValues(int amountBought);
 }
