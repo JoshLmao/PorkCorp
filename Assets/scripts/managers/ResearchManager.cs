@@ -48,6 +48,7 @@ public class ResearchManager : MonoBehaviour
             return;
         }
 
+        //Should be able to do with UI being disabled but add check just incase
         if (research.AmountBought >= research.MaxAmountAllowed)
         {
             Debug.Log("Unable to purchase research. Reached max bought");
@@ -55,7 +56,6 @@ public class ResearchManager : MonoBehaviour
         }
 
         m_moneyManager.RemoveAmount(research.Cost);
-
         research.Buy();
     }
 
@@ -68,7 +68,6 @@ public class ResearchManager : MonoBehaviour
         if (allLoadedResearch == null || allLoadedResearch?.Count == 0)
             return;
 
-        Debug.Log("Set Loaded research");
         AllResearch = allLoadedResearch;
     }
 }
