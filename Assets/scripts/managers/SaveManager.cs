@@ -144,6 +144,8 @@ public class SaveManager : MonoBehaviour
 
         m_currentData.Money = m_moneyManager.Money;
         m_currentData.SellValue = m_moneyManager.SellValue;
+        m_currentData.FabricatorCapacity = m_fabricatorManager.Charge;
+        m_currentData.FabricatorMaxCapacity = m_fabricatorManager.ChargeCapacity;
     }
 
     /// <summary>
