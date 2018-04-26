@@ -37,7 +37,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4483465282125470}
-  - component: {fileID: 114771735492644264}
+  - component: {fileID: 114875469140547320}
   m_Layer: 0
   m_Name: Mansion
   m_TagString: Untagged
@@ -126,7 +126,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &114771735492644264
+--- !u!114 &114875469140547320
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -134,8 +134,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1268031317579126}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 33f679ea376719a4fb548ff574f5cb07, type: 3}
+  m_Script: {fileID: 11500000, guid: 86ef4b2cc4654844ba8155a4cc6f524b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Name: Mansion
   m_currentCapacity: 0
