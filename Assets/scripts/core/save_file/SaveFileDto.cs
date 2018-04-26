@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class SaveFileDto
 {
-    public int Money { get; set; }
+    public float Money { get; set; }
     public double SellValue { get; set; }
 
     public float FabricatorCapacity { get; set; }

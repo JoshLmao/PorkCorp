@@ -6,7 +6,7 @@ using UnityEngine;
 public class MoneyManager : MonoBehaviour
 {
     private float m_money;
-    public int Money
+    public float Money
     {
         get { return (int)Math.Round(m_money, 0); }
         private set { m_money = value; }
@@ -30,6 +30,7 @@ public class MoneyManager : MonoBehaviour
     {
         Money = 0;
         SellValue = 0.10;
+        ResearchMultiplier = 1f;
     }
 
     void Awake()
@@ -46,17 +47,17 @@ public class MoneyManager : MonoBehaviour
 
     public void AddAmount(float amount)
     {
-        m_money += amount;
+        m_money += GetMultipliedValue(amount);
     }
 
     public void AddAmount(double amount)
     {
-        m_money += (float)amount;
+        m_money += GetMultipliedValue(amount);
     }
 
     public void AddAmount(int amount)
     {
-        m_money += amount;
+        m_money += GetMultipliedValue(amount);
     }
 
     public void RemoveAmount(double amount)
@@ -74,11 +75,11 @@ public class MoneyManager : MonoBehaviour
         ResearchMultiplier += amount;
     }
 
-    double GetMultipliedValue(double value)
+    float GetMultipliedValue(double value)
     {
         if (ResearchMultiplier > 1f)
-            return value * ResearchMultiplier;
+            return (float)(value * ResearchMultiplier);
         else
-            return value;
+            return (float)value;
     }
 }

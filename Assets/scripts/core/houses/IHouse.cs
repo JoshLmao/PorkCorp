@@ -13,9 +13,13 @@ public interface IHouse
     /// </summary>
     double BaseCost { get; }
     /// <summary>
-    /// The total number of pigs that can be inside the house
+    /// The base capacity the house can hold, excluding research
     /// </summary>
-    int TotalCapacity { get; }
+    int BaseTotalCapacity { get; }
+    /// <summary>
+    /// The total number of pigs that can be currently inside the house
+    /// </summary>
+    int TotalCapacity { get; set; }
     /// <summary>
     /// The number of pigs currently inside this house
     /// </summary>
@@ -25,4 +29,6 @@ public interface IHouse
     /// </summary>
     double PigsPerSecond { get; set; }
     int HouseIndex { get; set; }
+
+    void IncreaseTotalCapacity(int amount);
 }

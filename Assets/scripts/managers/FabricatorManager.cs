@@ -61,9 +61,9 @@ public class FabricatorManager : MonoBehaviour
         DecreaseCharge();
 
         //Find the house for the pig to go to and increment
-        HouseBase lowestHouse = m_housingManager.BoughtHouses.Aggregate(
-            (x, y) => x.Value.GetComponent<HouseBase>().CurrentCapacity < y.Value.GetComponent<HouseBase>().CurrentCapacity ? x : y
-            ).Value.GetComponent<HouseBase>();
+        HouseController lowestHouse = m_housingManager.BoughtHouses.Aggregate(
+            (x, y) => x.Value.GetComponent<HouseController>().CurrentCapacity < y.Value.GetComponent<HouseController>().CurrentCapacity ? x : y
+            ).Value.GetComponent<HouseController>();
 
         if (lowestHouse != null)
         {

@@ -1,14 +1,8 @@
-﻿public class Bungalow : IHouse
+﻿public class Bungalow : HouseBase
 {
     public static string NAME { get { return "Bungalow"; } }
 
-    public string Name { get { return NAME; } }
-    public int HouseIndex { get; set; }
-
-    public double PigsPerSecond { get; set; }
-
-    public double BaseCost { get { return 250.0; } }
-
-    public int TotalCapacity { get { return 1000; } }
-    public int CurrentCapacity { get; set; }
+    public override string Name { get { return NAME; } }
+    public override double BaseCost { get { return 250.0; } }
+    public override int BaseTotalCapacity { get { return 1000; } }
 }

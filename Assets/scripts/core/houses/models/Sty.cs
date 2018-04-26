@@ -1,14 +1,8 @@
-﻿public class Sty : IHouse
+﻿public class Sty : HouseBase
 {
     public static string NAME { get { return "Sty"; } }
 
-    public string Name { get { return NAME; } }
-    public int HouseIndex { get; set; }
-
-    public double PigsPerSecond { get; set; }
-
-    public double BaseCost { get { return 1.0; } }
-
-    public int TotalCapacity { get { return 250; } }
-    public int CurrentCapacity { get; set; }
+    public override string Name { get { return NAME; } }
+    public override double BaseCost { get { return 1.0; } }
+    public override int BaseTotalCapacity { get { return 250; } }
 }

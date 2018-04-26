@@ -138,7 +138,7 @@ public class SaveManager : MonoBehaviour
         if (m_currentData == null)
             m_currentData = new SaveFileDto();
 
-        m_houses = m_housingManager.BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
+        m_houses = m_housingManager.BoughtHouses.Values.Select(x => x.GetComponent<HouseController>().HouseInfo).ToList();
         m_research = m_researchManager.AllResearch;
         m_vehicles = m_distributionManager.BoughtVehicles;
 

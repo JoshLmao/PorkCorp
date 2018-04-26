@@ -83,7 +83,7 @@ public class ResearchManager : MonoBehaviour
                 break;
             //Housing Researches
             case ResearchType.HousingIncreaseCapacity:
-                m_housingManager.IncreaseCapacity(research.ModifyValue);
+                m_housingManager.IncreaseCapacitiesByPercent(research.ModifyValue);
                 break;
             default:
                 throw new NotImplementedException("Not implemented research value");

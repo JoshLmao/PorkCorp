@@ -69,18 +69,18 @@ public class HousingManager : MonoBehaviour
         if (m_housingParent == null)
             Debug.LogError("Housing Parent is null!");
 
-        GameObject prefab = m_housePrefabs.FirstOrDefault(x => x.GetComponent<HouseBase>().Name == house.Name);
+        GameObject prefab = m_housePrefabs.FirstOrDefault(x => x.GetComponent<HouseController>().Name == house.Name);
         if (prefab == null)
             Debug.LogError($"Can't find prefab for House '{house.Name}'");
 
         GameObject housePrefab = Instantiate(prefab);
         housePrefab.transform.SetParent(m_housingParent);
 
-        var prevHouse = BoughtHouses.FirstOrDefault(x => x.Value.GetComponent<HouseBase>().HouseIndex == (houseIndexPosition - 1)).Value;
+        var prevHouse = BoughtHouses.FirstOrDefault(x => x.Value.GetComponent<HouseController>().HouseIndex == (houseIndexPosition - 1)).Value;
         Vector3 newPos = prevHouse != null ? GetNewPosition(housePrefab, prevHouse) : Vector3.zero;
         housePrefab.transform.localPosition = newPos;
 
-        HouseBase houseController = housePrefab.GetComponent<HouseBase>();
+        HouseController houseController = housePrefab.GetComponent<HouseController>();
         houseController.SetInfo(house);
         return housePrefab;
     }
@@ -97,7 +97,7 @@ public class HousingManager : MonoBehaviour
 
         if (BoughtHouses.ContainsKey(house.HouseIndex))
         {
-            List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
+            List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseController>().HouseInfo).ToList();
             houses.Remove(house);
             houses.Add(targetHouse);
 
@@ -108,14 +108,22 @@ public class HousingManager : MonoBehaviour
         }
     }
 
-    public void IncreaseCapacity(double modifyValue)
+    public void IncreaseCapacitiesByPercent(double percentageValue)
     {
-        throw new NotImplementedException();
+        foreach(KeyValuePair<int, GameObject> kvp in BoughtHouses)
+        {
+            IHouse houseInfo = kvp.Value.GetComponent<HouseController>().HouseInfo;
+            if(houseInfo != null)
+            {
+                int amountToIncrease = (int)(houseInfo.TotalCapacity / percentageValue);
+                houseInfo.IncreaseTotalCapacity(amountToIncrease);
+            }
+        }
     }
 
     public void AddHouse(IHouse upgradeToHouse)
     {
-        List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();
+        List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseController>().HouseInfo).ToList();
         houses.Add(upgradeToHouse);
         UpdateHouses(houses);
     }
@@ -144,7 +152,7 @@ public class HousingManager : MonoBehaviour
         {
             GameObject newHousePrefab = AddHouse(house, house.HouseIndex);
 
-            HouseBase houseBase = newHousePrefab.GetComponent<HouseBase>();
+            HouseController houseBase = newHousePrefab.GetComponent<HouseController>();
             BoughtHouses.Add(houseBase.HouseIndex, newHousePrefab);
         }
     }

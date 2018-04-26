@@ -19,7 +19,7 @@ public enum ResearchType
     /// </summary>
     MoneyIncreaseValue,
     /// <summary>
-    /// Increases the capacity of all houses by this amount (percentage)
+    /// Increases the capacity of all houses by percentage amount (number between 0 - 100)
     /// </summary>
     HousingIncreaseCapacity,
 }

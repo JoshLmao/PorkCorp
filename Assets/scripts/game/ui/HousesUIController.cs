@@ -43,7 +43,7 @@ public class HousesUIController : UIBase
     {
         if (m_housingManager.BoughtHouses.Count >= 1)
         {
-            IHouse house = m_housingManager.BoughtHouses.Values.ElementAt(0).GetComponent<HouseBase>().HouseInfo;
+            IHouse house = m_housingManager.BoughtHouses.Values.ElementAt(0).GetComponent<HouseController>().HouseInfo;
             m_houseOne.CurrentCapacity = house.CurrentCapacity;
         }
     }
@@ -65,7 +65,7 @@ public class HousesUIController : UIBase
         if(m_housingManager.BoughtHouses.Count > houseIndex)
         {
             GameObject element = m_housingManager.BoughtHouses.Values.ElementAt(houseIndex);
-            IHouse house = element.GetComponent<HouseBase>().HouseInfo;
+            IHouse house = element.GetComponent<HouseController>().HouseInfo;
             if (house != null)
             {
                 uc.Name = house.Name;
