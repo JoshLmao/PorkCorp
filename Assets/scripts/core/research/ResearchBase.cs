@@ -15,6 +15,7 @@ public abstract class ResearchBase : IResearch
     public abstract int MaxAmountAllowed { get; }
 
     public abstract double ModifyValue { get; }
+    public abstract ResearchType Type { get; }
 
     public ResearchBase(int tier, int order)
     {

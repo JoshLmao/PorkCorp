@@ -108,6 +108,11 @@ public class HousingManager : MonoBehaviour
         }
     }
 
+    public void IncreaseCapacity(double modifyValue)
+    {
+        throw new NotImplementedException();
+    }
+
     public void AddHouse(IHouse upgradeToHouse)
     {
         List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseBase>().HouseInfo).ToList();

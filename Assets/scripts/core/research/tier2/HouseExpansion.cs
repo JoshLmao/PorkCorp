@@ -11,6 +11,7 @@ public class HouseExpansion : ResearchBase
     public override string Description { get { return "Expand your houses by x%"; } }
     public override double Cost { get { return 10.0; } }
 
+    public override ResearchType Type { get { return ResearchType.FabricatorChargeRate; } }
     public override double ModifyValue { get { return 10.0; } }
 
     public override int AmountBought { get; protected set; }

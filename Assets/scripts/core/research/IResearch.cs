@@ -27,6 +27,10 @@ public interface IResearch
     /// </summary>
     double ModifyValue { get; }
     /// <summary>
+    /// The type of research this is. Sets where the modify value is sent to
+    /// </summary>
+    ResearchType Type { get; }
+    /// <summary>
     /// The cost in currency to buy the research
     /// </summary>
     double Cost { get; }

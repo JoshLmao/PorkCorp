@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class ResearchManager : MonoBehaviour
 {
@@ -26,10 +27,14 @@ public class ResearchManager : MonoBehaviour
     }
 
     MoneyManager m_moneyManager = null;
+    FabricatorManager m_fabricatorManager = null;
+    HousingManager m_housingManager = null;
 
     private void Awake()
     {
         m_moneyManager = FindObjectOfType<MoneyManager>();
+        m_fabricatorManager = FindObjectOfType<FabricatorManager>();
+        m_housingManager = FindObjectOfType<HousingManager>();
     }
 
     private void Start ()
@@ -57,6 +62,32 @@ public class ResearchManager : MonoBehaviour
 
         m_moneyManager.RemoveAmount(research.Cost);
         research.Buy();
+
+        ApplyModifyValue(research);
+    }
+
+    void ApplyModifyValue(IResearch research)
+    {
+        switch(research.Type)
+        {
+            //Fabricator Researches
+            case ResearchType.FabricatorChargeRate:
+                m_fabricatorManager.IncreaseChargeRate(research.ModifyValue);
+                break;
+            case ResearchType.FabricatorMaxCharge:
+                m_fabricatorManager.IncrementMaxCharge(research.ModifyValue);
+                break;
+            //Money Researches
+            case ResearchType.MoneyIncreaseValue:
+                m_moneyManager.IncreaseResearchValue(research.ModifyValue);
+                break;
+            //Housing Researches
+            case ResearchType.HousingIncreaseCapacity:
+                m_housingManager.IncreaseCapacity(research.ModifyValue);
+                break;
+            default:
+                throw new NotImplementedException("Not implemented research value");
+        }
     }
 
     /// <summary>

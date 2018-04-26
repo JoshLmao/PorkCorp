@@ -75,10 +75,20 @@ public class FabricatorManager : MonoBehaviour
         }
     }
 
-    public void IncrementMaxCharge(float amount)
+    public void IncrementMaxCharge(double amount)
     {
-        if(amount > 0)
-            ChargeCapacity += amount;
+        if(amount <= 0)
+            return;
+
+        ChargeCapacity += (float)amount;
+    }
+
+    public void IncreaseChargeRate(double modifyValue)
+    {
+        if (modifyValue <= 0f)
+            return;
+
+        m_rechargeTickAmount += (float)modifyValue;
     }
 
     public void DecreaseCharge()
