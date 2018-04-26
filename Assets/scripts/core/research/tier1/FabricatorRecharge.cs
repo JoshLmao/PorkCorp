@@ -15,7 +15,7 @@ public class FabricatorRecharge : ResearchBase
     public override int MaxAmountAllowed { get { return 10; } }
 
     public override ResearchType Type { get { return ResearchType.FabricatorChargeRate; } }
-    public override double ModifyValue { get { return 0.1; } }
+    public override double ModifyValue { get { return 10; } }
 
     public FabricatorRecharge(int tier, int order) : base(tier, order)
     {

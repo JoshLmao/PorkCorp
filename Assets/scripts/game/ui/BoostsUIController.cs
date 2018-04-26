@@ -82,10 +82,11 @@ public class BoostsUIController : MonoBehaviour {
 
     public void OnBuyBoost()
     {
-        if (false)
-        {
-            Debug.Log("Unable to buy boost. Don't have enough special currency");
-            return;
-        }
+        //if (false)
+        //{
+        //    Debug.Log("Unable to buy boost. Don't have enough special currency");
+        //    return;
+        //}
+        throw new NotImplementedException();
     }
 }

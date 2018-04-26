@@ -83,12 +83,10 @@ public class FabricatorManager : MonoBehaviour
         ChargeCapacity += (float)amount;
     }
 
-    public void IncreaseChargeRate(double modifyValue)
+    public void IncreaseChargeRate(double percentageValue)
     {
-        if (modifyValue <= 0f)
-            return;
-
-        m_rechargeTickAmount += (float)modifyValue;
+        double amount = m_rechargeTickAmount / percentageValue;
+        m_rechargeTickAmount += (float)amount;
     }
 
     public void DecreaseCharge()

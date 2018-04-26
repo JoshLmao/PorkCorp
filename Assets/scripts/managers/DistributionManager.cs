@@ -15,6 +15,13 @@ public class DistributionManager : MonoBehaviour
         set { m_vehicleLimit = value; }
     }
 
+    int m_totalIncreaseAmountPercent = 0;
+    public int TotalIncreaseAmountPercent
+    {
+        get { return m_totalIncreaseAmountPercent; }
+        set { m_totalIncreaseAmountPercent = value; }
+    }
+
     [SerializeField]
     List<GameObject> m_sellVehiclePrefabs;
 
@@ -74,5 +81,19 @@ public class DistributionManager : MonoBehaviour
             return;
 
         VehicleLimit = limit;
+    }
+
+    internal void IncreaseVehicleCapacity(int percentageValue)
+    {
+        TotalIncreaseAmountPercent += percentageValue;
+        foreach(ISellVehicle vehicle in BoughtVehicles)
+        {
+
+        }
+    }
+
+    internal void IncreaseVehicleLimit(int value)
+    {
+        VehicleLimit += value;
     }
 }

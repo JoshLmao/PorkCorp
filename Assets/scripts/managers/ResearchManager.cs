@@ -17,6 +17,7 @@ public class ResearchManager : MonoBehaviour
                                         /*Tier 2*/
                                         new HouseExpansion(2, 1),
                                         new DoubleValue(2, 2),
+                                        new IncreaseVehicleLimit(2, 3),
                                         /*Tier 3*/
                                     };
 
@@ -29,12 +30,14 @@ public class ResearchManager : MonoBehaviour
     MoneyManager m_moneyManager = null;
     FabricatorManager m_fabricatorManager = null;
     HousingManager m_housingManager = null;
+    DistributionManager m_distributionManager = null;
 
     private void Awake()
     {
         m_moneyManager = FindObjectOfType<MoneyManager>();
         m_fabricatorManager = FindObjectOfType<FabricatorManager>();
         m_housingManager = FindObjectOfType<HousingManager>();
+        m_distributionManager = FindObjectOfType<DistributionManager>();
     }
 
     private void Start ()
@@ -84,6 +87,13 @@ public class ResearchManager : MonoBehaviour
             //Housing Researches
             case ResearchType.HousingIncreaseCapacity:
                 m_housingManager.IncreaseCapacitiesByPercent(research.ModifyValue);
+                break;
+            //Distribution Researches
+            case ResearchType.DistributionVehicleCapacity:
+                m_distributionManager.IncreaseVehicleCapacity((int)research.ModifyValue);
+                break;
+            case ResearchType.DistributionVehicleLimit:
+                m_distributionManager.IncreaseVehicleLimit((int)research.ModifyValue);
                 break;
             default:
                 throw new NotImplementedException("Not implemented research value");

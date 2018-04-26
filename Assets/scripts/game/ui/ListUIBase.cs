@@ -79,7 +79,6 @@ public class ListUIBase : UIBase
 
     protected void DestroyChildren(Transform parent)
     {
-        List<GameObject> children = new List<GameObject>();
         foreach (Transform existingChildren in parent)
             Destroy(existingChildren.gameObject);
     }

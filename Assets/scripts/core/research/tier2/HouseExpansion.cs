@@ -8,7 +8,7 @@ public class HouseExpansion : ResearchBase
     public static string NAME { get { return "House Expansion"; } }
 
     public override string Name { get { return NAME; } }
-    public override string Description { get { return "Expand your houses by x%"; } }
+    public override string Description { get { return $"Expand your houses by {ModifyValue}%"; } }
     public override double Cost { get { return 10.0; } }
 
     public override ResearchType Type { get { return ResearchType.HousingIncreaseCapacity; } }

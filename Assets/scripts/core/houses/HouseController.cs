@@ -6,8 +6,7 @@ using UnityEngine;
 
 public class HouseController : MonoBehaviour
 {
-    [SerializeField]
-    public string Name;
+    public string Name { get { return this.name; } }
 
     public int TotalCapacity { get { return HouseInfo.TotalCapacity; } }
     public int HouseIndex
@@ -31,7 +30,6 @@ public class HouseController : MonoBehaviour
     public double PigsPerSecond { get; set; }
     public IHouse HouseInfo { get; private set; }
 
-    Timer m_breedTimer = null;
     MoneyManager m_moneyManager = null;
 
     /// <summary>
