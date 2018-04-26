@@ -21,6 +21,9 @@ public class ResearchManager : MonoBehaviour
                                         /*Tier 3*/
                                     };
 
+    /// <summary>
+    /// All research bought
+    /// </summary>
     public List<IResearch> AllResearch
     {
         get { return m_allResearch; }
@@ -32,6 +35,7 @@ public class ResearchManager : MonoBehaviour
     HousingManager m_housingManager = null;
     DistributionManager m_distributionManager = null;
 
+    #region MonoBehavious
     private void Awake()
     {
         m_moneyManager = FindObjectOfType<MoneyManager>();
@@ -47,7 +51,12 @@ public class ResearchManager : MonoBehaviour
     private void Update ()
     {
     }
+    #endregion
 
+    /// <summary>
+    /// Purchase a research. Handles applying research & removing money
+    /// </summary>
+    /// <param name="research">The reseaerch to buy</param>
     public void BuyResearch(IResearch research)
     {
         if (m_moneyManager.Money < research.Cost)
@@ -69,6 +78,10 @@ public class ResearchManager : MonoBehaviour
         ApplyModifyValue(research);
     }
 
+    /// <summary>
+    /// Sets the research value to the appropriate location
+    /// </summary>
+    /// <param name="research">The research to apply</param>
     void ApplyModifyValue(IResearch research)
     {
         switch(research.Type)
@@ -110,5 +123,13 @@ public class ResearchManager : MonoBehaviour
             return;
 
         AllResearch = allLoadedResearch;
+
+        //Go over every research
+        foreach(IResearch research in AllResearch)
+        {
+            //Apply for each time bought. Since no research has been set yet, apply them all
+            for(int i = 0; i < research.AmountBought; i++)
+                ApplyModifyValue(research);
+        }
     }
 }
