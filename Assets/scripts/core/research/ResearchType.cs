@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 public enum ResearchType
 {
     /// <summary>
-    /// Increase recharging rate of fabricator click recharge as a percentage (numver between 0 - 100)
+    /// Increase recharging rate of fabricator click recharge as a percentage (number between 0 - 100)
     /// </summary>
     FabricatorChargeRate,
     /// <summary>

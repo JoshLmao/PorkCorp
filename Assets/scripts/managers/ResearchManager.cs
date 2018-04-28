@@ -125,10 +125,10 @@ public class ResearchManager : MonoBehaviour
         AllResearch = allLoadedResearch;
 
         //Go over every research
-        foreach(IResearch research in AllResearch)
+        foreach (IResearch research in AllResearch)
         {
             //Apply for each time bought. Since no research has been set yet, apply them all
-            for(int i = 0; i < research.AmountBought; i++)
+            for (int i = 0; i < research.AmountBought; i++)
                 ApplyModifyValue(research);
         }
     }
