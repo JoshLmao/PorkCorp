@@ -17,9 +17,9 @@ public class BuyHouseUIController : ListUIBase
 
     int m_startFromIndex = 0;
 
-    public override void OnShowUI()
+    public override void OnToggleUI()
     {
-        base.OnShowUI();
+        base.OnToggleUI();
 
         //Index of list of all houses to start from. Eg, 0 draws all houses
         m_startFromIndex = HouseToUpgrade != null ? HousingManager.ALL_HOUSES.IndexOf(HousingManager.ALL_HOUSES.FirstOrDefault(x => x.Name == HouseToUpgrade.Name)) : 0;

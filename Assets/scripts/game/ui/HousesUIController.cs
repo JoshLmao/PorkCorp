@@ -88,7 +88,7 @@ public class HousesUIController : UIBase
         BuyHouseUIController controller = m_buyHouseCanvas.GetComponent<BuyHouseUIController>();
         controller.HouseIndex = houseIndex;
         controller.OnBuildHouse += OnBuildHouse;
-        m_buyHouseCanvas.OnShowUI();
+        m_buyHouseCanvas.OnSetUI(false);
     }
 
     private void OnUpgradeHouseClicked(IHouse currentHouse)
@@ -96,13 +96,13 @@ public class HousesUIController : UIBase
         BuyHouseUIController controller = m_buyHouseCanvas.GetComponent<BuyHouseUIController>();
         controller.HouseToUpgrade = currentHouse;
         controller.OnUpgradeHouse += OnUpgradeHouse;
-        m_buyHouseCanvas.OnShowUI();
+        m_buyHouseCanvas.OnSetUI(false);
     }
 
     private void OnBuildHouse(IHouse upgradeToHouse)
     {
         m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnBuildHouse -= OnBuildHouse;
-        m_buyHouseCanvas.OnHideUI();
+        m_buyHouseCanvas.OnSetUI(false);
 
         m_housingManager.AddHouse(upgradeToHouse);
 
@@ -112,16 +112,16 @@ public class HousesUIController : UIBase
     private void OnUpgradeHouse(IHouse prevHouse, IHouse upgradeToHouse)
     {
         m_buyHouseCanvas.GetComponent<BuyHouseUIController>().OnUpgradeHouse -= OnUpgradeHouse;
-        m_buyHouseCanvas.OnHideUI();
+        m_buyHouseCanvas.OnSetUI(false);
 
         m_housingManager.UpgradeHouse(prevHouse, upgradeToHouse);
 
         UpdateHouses();
     }
 
-    public override void OnShowUI()
+    public override void OnToggleUI()
     {
-        base.OnShowUI();
+        base.OnToggleUI();
 
         UpdateHouses();
     }

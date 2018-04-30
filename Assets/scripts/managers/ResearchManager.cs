@@ -97,6 +97,9 @@ public class ResearchManager : MonoBehaviour
             case ResearchType.MoneyIncreaseValue:
                 m_moneyManager.IncreaseResearchValue(research.ModifyValue);
                 break;
+            case ResearchType.MoneyUniqueMultiply:
+                m_moneyManager.AddUniqueMultiplier(research.ModifyValue);
+                break;
             //Housing Researches
             case ResearchType.HousingIncreaseCapacity:
                 m_housingManager.IncreaseCapacitiesByPercent(research.ModifyValue);
@@ -127,6 +130,12 @@ public class ResearchManager : MonoBehaviour
         //Go over every research
         foreach (IResearch research in AllResearch)
         {
+            //Dont apply these researches since loaded file contains applied research from prev. game values
+            if (research.Type == ResearchType.HousingIncreaseCapacity)
+                continue;
+
+            //Debug.Log($"Research {research.Name} - Amount {research.AmountBought}");
+
             //Apply for each time bought. Since no research has been set yet, apply them all
             for (int i = 0; i < research.AmountBought; i++)
                 ApplyModifyValue(research);

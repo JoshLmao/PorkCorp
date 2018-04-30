@@ -92,7 +92,7 @@ public class DistributionManager : MonoBehaviour
         }
     }
 
-    internal void IncreaseVehicleLimit(int value)
+    public void IncreaseVehicleLimit(int value)
     {
         VehicleLimit += value;
     }

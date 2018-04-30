@@ -19,6 +19,10 @@ public enum ResearchType
     /// Increase the value by the amount (add value to additive multiplier)
     /// </summary>
     MoneyIncreaseValue,
+    /// <summary>
+    /// Applied after increase value multiplier. Use for double/triple/etc (2.0 = double, 3.0 = triple)
+    /// </summary>
+    MoneyUniqueMultiply,
 
     /// <summary>
     /// Increases the capacity of all houses by percentage amount (number between 0 - 100)

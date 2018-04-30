@@ -20,7 +20,6 @@ public class ResearchUIController : TieredListUIBase
         base.Start();
 
         UpdateList();
-        Debug.Log("Loaded List");
     }
 
     protected override void EntryAdded(GameObject entry, int tier, int entryIndex)

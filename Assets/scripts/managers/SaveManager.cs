@@ -104,7 +104,7 @@ public class SaveManager : MonoBehaviour
             try
             {
                 string json = File.ReadAllText(m_mainFilePath);
-                saveFile = JsonConvert.DeserializeObject<SaveFileDto>(json); 
+                saveFile = JsonConvert.DeserializeObject<SaveFileDto>(json);
             }
             catch(Exception e)
             {

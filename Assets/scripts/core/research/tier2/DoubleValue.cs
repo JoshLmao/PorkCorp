@@ -10,7 +10,7 @@ public class DoubleValue : ResearchBase
     public override string Description { get { return "Double the value of your pork!"; } }
     public override double Cost { get { return 5.0; } }
 
-    public override ResearchType Type { get { return ResearchType.MoneyIncreaseValue; } }
+    public override ResearchType Type { get { return ResearchType.MoneyUniqueMultiply; } }
     public override double ModifyValue { get { return 2.0; } }
 
     public override int AmountBought { get; protected set; }

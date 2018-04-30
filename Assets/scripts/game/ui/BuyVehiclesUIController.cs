@@ -45,12 +45,12 @@ public class BuyVehiclesUIController : ListUIBase
         if (OnSelectVehicleToHire != null)
             OnSelectVehicleToHire.Invoke(vehicle);
 
-        OnHideUI();
+        OnSetUI(false);
     }
 
-    public override void OnHideUI()
+    public override void OnToggleUI()
     {
-        base.OnHideUI();
+        base.OnToggleUI();
 
         m_buyControls.Clear();
     }

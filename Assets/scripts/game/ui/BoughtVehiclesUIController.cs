@@ -26,8 +26,6 @@ public class BoughtVehiclesUIController : ListUIBase
     protected override void Start()
     {
         base.Start();
-        m_boughtVehiclesUCs.Clear();
-        UpdateList(m_distributionManager.VehicleLimit);
     }
 
     protected override void Update()
@@ -77,6 +75,14 @@ public class BoughtVehiclesUIController : ListUIBase
         m_buyCanvas.GetComponent<BuyVehiclesUIController>().OnSelectVehicleToHire -= OnHireSelectedVehicle;
 
         m_distributionManager.BuyVehicle(vehicle);
+        UpdateList(m_distributionManager.VehicleLimit);
+    }
+
+    public override void OnToggleUI()
+    {
+        base.OnToggleUI();
+
+        m_boughtVehiclesUCs.Clear();
         UpdateList(m_distributionManager.VehicleLimit);
     }
 }

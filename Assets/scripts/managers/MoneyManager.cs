@@ -26,6 +26,13 @@ public class MoneyManager : MonoBehaviour
         set { m_researchMultiplier = value; }
     }
 
+    int m_researchUniqueMultiplier;
+    public int ResearchUniqueMultiplier
+    {
+        get { return m_researchUniqueMultiplier; }
+        set { m_researchUniqueMultiplier = value; }
+    }
+
     public MoneyManager()
     {
         Money = 0;
@@ -75,11 +82,24 @@ public class MoneyManager : MonoBehaviour
         ResearchMultiplier += amount;
     }
 
+    public void AddUniqueMultiplier(double modifyValue)
+    {
+        ResearchUniqueMultiplier += (int)modifyValue;
+    }
+
     float GetMultipliedValue(double value)
     {
         if (ResearchMultiplier > 1f)
-            return (float)(value * ResearchMultiplier);
+        {
+            double baseMultiply = (value * ResearchMultiplier);
+            if (ResearchUniqueMultiplier > 1f)
+                return (float)(baseMultiply * ResearchUniqueMultiplier);
+            else
+                return (float)baseMultiply;
+        }
         else
+        {
             return (float)value;
+        }
     }
 }
