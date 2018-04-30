@@ -222,7 +222,12 @@ Prefab:
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnToggleUI
+      value: OnSetUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8988d779a26d584c8275a1ccd6b4f36, type: 2}
@@ -2265,7 +2270,12 @@ Prefab:
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnToggleUI
+      value: OnSetUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8988d779a26d584c8275a1ccd6b4f36, type: 2}
@@ -6255,12 +6265,12 @@ Prefab:
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnToggleUI
+      value: OnSetUI
       objectReference: {fileID: 0}
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8988d779a26d584c8275a1ccd6b4f36, type: 2}
@@ -6652,9 +6662,9 @@ MonoBehaviour:
   m_listParent: {fileID: 1092704352}
   m_uiEntryPrefab: {fileID: 1127119354380592, guid: d917b864d30d9a9459f26bc24cea7b8b,
     type: 2}
-  m_uiStartLocalYPosition: 250
+  m_uiStartLocalYPosition: 0
   m_uiEntrySpacing: 10
-  m_minRectHeight: 320
+  m_minRectHeight: 340
   m_resizeCanvas: {fileID: 1092704352}
   m_buyCanvas: {fileID: 749120600}
 --- !u!224 &1750711348
@@ -6991,7 +7001,12 @@ Prefab:
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnToggleUI
+      value: OnSetUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8988d779a26d584c8275a1ccd6b4f36, type: 2}
@@ -7654,7 +7669,12 @@ Prefab:
     - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
         type: 2}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OnToggleUI
+      value: OnSetUI
+      objectReference: {fileID: 0}
+    - target: {fileID: 114591697557813112, guid: d8988d779a26d584c8275a1ccd6b4f36,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: d8988d779a26d584c8275a1ccd6b4f36, type: 2}

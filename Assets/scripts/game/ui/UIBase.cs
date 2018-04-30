@@ -23,6 +23,8 @@ public class UIBase : MonoBehaviour
 
     public virtual void OnSetUI(bool status)
     {
-        this.gameObject.SetActive(m_isShowing);
+        this.gameObject.SetActive(status);
+        if (m_isShowing != status)
+            m_isShowing = status;
     }
 }
