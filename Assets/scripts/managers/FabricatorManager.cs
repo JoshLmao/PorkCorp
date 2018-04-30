@@ -101,5 +101,7 @@ public class FabricatorManager : MonoBehaviour
     {
         Charge = charge;
         ChargeCapacity = chargeCapacity;
+
+        m_isRecharging = charge < ChargeCapacity;
     }
 }

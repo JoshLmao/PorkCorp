@@ -25,8 +25,6 @@ public class DistributionManager : MonoBehaviour
     [SerializeField]
     List<GameObject> m_sellVehiclePrefabs;
 
-    VehicleSpawnerController m_vehicleSpawner;
-
     public DistributionManager()
     {
         
@@ -34,7 +32,6 @@ public class DistributionManager : MonoBehaviour
 
     private void Awake()
     {
-        m_vehicleSpawner = FindObjectOfType<VehicleSpawnerController>();
     }
 
     private void Start ()
