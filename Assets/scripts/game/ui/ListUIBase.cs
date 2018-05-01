@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ListUIBase : UIBase
 {
@@ -17,10 +18,10 @@ public class ListUIBase : UIBase
     protected float m_uiEntrySpacing = 10f;
 
     [SerializeField]
-    float m_minRectHeight;
+    protected float m_minRectHeight;
 
     [SerializeField]
-    RectTransform m_resizeCanvas;
+    protected RectTransform m_resizeCanvas;
 
     protected List<GameObject> m_uiEntries = null;
 
@@ -65,6 +66,7 @@ public class ListUIBase : UIBase
         }
 
         SetRectHeight(newCanvasHeight);
+        SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
     }
 
     protected virtual void EntryAdded(GameObject entry, int index)
@@ -89,5 +91,23 @@ public class ListUIBase : UIBase
             rectHeight = m_minRectHeight;
         RectTransform rect = m_resizeCanvas.GetComponent<RectTransform>();
         rect.sizeDelta = new Vector2(0, rectHeight);
+    }
+
+    public override void OnSetUI(bool status)
+    {
+        base.OnSetUI(status);
+
+        if (status)
+        {
+            SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
+        }
+    }
+
+    void SetScrollRect(ScrollRect rect)
+    {
+        if (rect != null)
+        {
+            rect.verticalNormalizedPosition = 1f;
+        }
     }
 }

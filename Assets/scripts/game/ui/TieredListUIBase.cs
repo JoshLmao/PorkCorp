@@ -46,10 +46,19 @@ public class TieredListUIBase : ListUIBase
         }
 
         SetRectHeight(newCanvasHeight);
+        SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
     }
 
     protected virtual void EntryAdded(GameObject entry, int tier, int order)
     {
 
+    }
+
+    void SetScrollRect(ScrollRect rect)
+    {
+        if (rect != null)
+        {
+            rect.verticalNormalizedPosition = 1f;
+        }
     }
 }

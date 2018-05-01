@@ -2589,7 +2589,7 @@ MonoBehaviour:
     type: 2}
   m_uiStartLocalYPosition: 250
   m_uiEntrySpacing: 10
-  m_minRectHeight: 0
+  m_minRectHeight: 395
   m_resizeCanvas: {fileID: 1669619936}
 --- !u!224 &753024527 stripped
 RectTransform:
@@ -3747,7 +3747,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 500}
+  m_SizeDelta: {x: 0, y: 340}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1129704581
 GameObject:
@@ -6464,8 +6464,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -0.00000538569}
-  m_SizeDelta: {x: 0, y: 500}
+  m_AnchoredPosition: {x: 0, y: -0.0000014305115}
+  m_SizeDelta: {x: 0, y: 295}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1698487240
 GameObject:
@@ -6662,7 +6662,7 @@ MonoBehaviour:
   m_listParent: {fileID: 1092704352}
   m_uiEntryPrefab: {fileID: 1127119354380592, guid: d917b864d30d9a9459f26bc24cea7b8b,
     type: 2}
-  m_uiStartLocalYPosition: 0
+  m_uiStartLocalYPosition: 170
   m_uiEntrySpacing: 10
   m_minRectHeight: 340
   m_resizeCanvas: {fileID: 1092704352}
