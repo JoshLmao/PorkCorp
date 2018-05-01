@@ -44,6 +44,8 @@ public class ListUIBase : UIBase
     protected virtual void UpdateList(int entryCount)
     {
         DestroyChildren(m_listParent);
+        //Workaround: Set height to min to position all correctly
+        SetRectHeight(m_minRectHeight);
 
         if (m_uiEntries == null)
             m_uiEntries = new List<GameObject>();

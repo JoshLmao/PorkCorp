@@ -15,6 +15,8 @@ public class TieredListUIBase : ListUIBase
     {
         DestroyChildren(m_listParent);
 
+        SetRectHeight(m_minRectHeight);
+
         if (m_uiEntries == null)
             m_uiEntries = new List<GameObject>();
         else if (m_uiEntries.Count > 0)
@@ -32,6 +34,7 @@ public class TieredListUIBase : ListUIBase
 
             SetRectLocalPos(tierUI, currentY);
             currentY -= (tierUI.GetComponent<RectTransform>().rect.height + m_uiTierSpacing);
+
 
             for (int entry = 0; entry < tiersAndEntryCounts[tier]; entry++)
             {
