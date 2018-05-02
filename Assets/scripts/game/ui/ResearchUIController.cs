@@ -32,7 +32,7 @@ public class ResearchUIController : TieredListUIBase
         uc.Name = research != null ? research.Name : "Empty";
         uc.Description = research != null ? research.Description : "Non description";
         uc.Cost = research != null ? research.Cost : 0.0;
-        uc.Icon = null;
+        uc.Icon = GetResearchSprite(research?.Name);
         uc.AmountBought = research != null ? research.AmountBought : 0;
         uc.MaxAmountAllowed = research != null ? research.MaxAmountAllowed : 1;
 
@@ -62,5 +62,30 @@ public class ResearchUIController : TieredListUIBase
         }
 
         UpdateTieredList(tierAndEntryCount);
+    }
+
+    /// <summary>
+    /// Gets the sprite from the resources
+    /// </summary>
+    /// <param name="spritePath"></param>
+    /// <returns></returns>
+    Sprite GetResearchSprite(string spritePath)
+    {
+        string resourcesBasePath = "research_sprites/";
+
+        Sprite icon = null;
+        if (!string.IsNullOrEmpty(spritePath))
+        {
+            spritePath = spritePath.Replace(" ", string.Empty);
+            icon = Resources.Load<Sprite>(resourcesBasePath + spritePath.ToLower());
+        }
+
+        if (icon == null)
+        {
+            icon = Resources.Load<Sprite>(resourcesBasePath + "fallbackIcon");
+            //Debug.Log($"Unable to find sprite for {spritePath}");
+        }
+
+        return icon;
     }
 }

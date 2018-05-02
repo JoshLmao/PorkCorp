@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEditor;
 using UnityEngine;
 
@@ -14,6 +15,11 @@ public class SaveManagerEditor : Editor
         if (GUILayout.Button("Save Game"))
         {
             myScript.OnSaveFile();
+        }
+
+        if (GUILayout.Button("Open Save Location"))
+        {
+            Process.Start(Application.persistentDataPath);
         }
     }
 }
