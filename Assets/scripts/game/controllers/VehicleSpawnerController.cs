@@ -45,7 +45,7 @@ public class VehicleSpawnerController : MonoBehaviour {
 
         GameObject spawnedVehicle = Instantiate(foundPrefab, m_movingVehiclesParent.transform);
         VehicleController vehicleController = spawnedVehicle.GetComponent<VehicleController>();
-        vehicleController.SetTarget(m_stopPosition.position);
+        vehicleController.SetStop(m_stopPosition.position);
         vehicleController.SetEnd(m_endPosition.position);
         vehicleController.Info = vehicle;
         vehicleController.OnVehicleFinished += OnVehicleFinished;

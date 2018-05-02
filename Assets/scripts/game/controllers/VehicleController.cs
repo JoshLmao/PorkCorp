@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class VehicleController : MonoBehaviour
 {
@@ -8,106 +9,102 @@ public class VehicleController : MonoBehaviour
 
     public ISellVehicle Info { get; set; }
 
-    Vector3 m_startPosition;
     Vector3 m_stopTarget;
     Vector3 m_endTarget;
 
     float m_travelCounter = 0f;
 
-    bool m_reachedStopTarget;
-    bool m_reachedEndTarget;
+    bool m_isMoving;
+    bool m_hasReachedTarget = false;
+    bool m_hasReachedEnd = false;
+    bool m_isWaiting = false;
+
+    NavMeshAgent m_agent = null;
+    Vector3 m_targetPosition = Vector3.zero;
+    Coroutine m_deliverCoroutine = null;
 
     const float TRAVEL_TIME_SECONDS = 10f;
     const float DROP_OFF_TIME_SECONDS = 5f;
 
-    private void Start()
+    protected virtual void Awake()
     {
-        m_startPosition = this.transform.position;
-        StartCoroutine(MoveVehicleToTarget());
+        m_agent = GetComponent<NavMeshAgent>();
     }
 
-    private void Update()
+    protected virtual void Start()
     {
-        //if (!m_reachedStopTarget)
-        //{
-        //    Vector3 lerped = Vector3.Lerp(m_startPosition, m_stopTarget, m_travelCounter);
-        //    transform.position = new Vector3(lerped.x, m_startPosition.y, lerped.z);
-        //    m_travelCounter += Time.deltaTime / TRAVEL_TIME_SECONDS;
-
-        //    if (m_travelCounter >= 1f)
-        //    {
-        //        m_travelCounter = 0f;
-        //        m_reachedStopTarget = true;
-        //        StartCoroutine(WaitDeliver());
-        //    }
-        //}
-        //else if(!m_reachedEndTarget)
-        //{
-        //    Vector3 lerped = Vector3.Lerp(m_startPosition, m_stopTarget, m_travelCounter);
-        //    transform.position = new Vector3(lerped.x, m_startPosition.y, lerped.z);
-        //    m_travelCounter += Time.deltaTime / TRAVEL_TIME_SECONDS;
-
-        //    if (m_travelCounter >= 1f)
-        //    {
-        //        m_reachedEndTarget = true;
-        //        OnVehicleFinished?.Invoke(this.gameObject);
-        //    }
-        //}
+        SetTargetPosition(m_stopTarget);
     }
 
-    public void SetTarget(Vector3 target)
+    protected virtual void Update()
+    {
+        if (m_isMoving)
+            m_agent.SetDestination(m_targetPosition);
+
+        float dist = m_agent.remainingDistance;
+        if (!m_agent.pathPending)
+        {
+            if (dist != Mathf.Infinity && m_agent.pathStatus == NavMeshPathStatus.PathComplete && m_agent.remainingDistance == 0)
+            {
+                m_isMoving = false;
+
+                if(!m_hasReachedTarget)
+                {
+                    OnReachedTarget();
+                    m_hasReachedTarget = true;
+                    
+                }
+                else if(!m_hasReachedEnd && m_deliverCoroutine == null)
+                {
+                    OnReachedEnd();
+                    m_hasReachedEnd = true;
+                }
+            }
+        }
+    }
+
+    IEnumerator WaitDeliver(Vector3 newTargetPosition)
+    {
+        yield return new WaitForSeconds(DROP_OFF_TIME_SECONDS);
+
+        SetTargetPosition(m_endTarget);
+        m_deliverCoroutine = null;
+    }
+
+    void SetTargetPosition(Vector3 pos)
+    {
+        m_targetPosition = pos;
+        m_isMoving = true;
+    }
+
+    /// <summary>
+    /// Target position where the vehicle will stop and wait
+    /// </summary>
+    /// <param name="target"></param>
+    public void SetStop(Vector3 target)
     {
         m_stopTarget = target;
     }
 
+    /// <summary>
+    /// End position where to vehicle will be destoryed (off screen)
+    /// </summary>
+    /// <param name="end"></param>
     public void SetEnd(Vector3 end)
     {
         m_endTarget = end;
     }
 
-    IEnumerator MoveVehicleToTarget()
+    protected virtual void OnReachedTarget()
     {
-        bool reachedTarget = false;
-        while (!reachedTarget)
+        if (m_deliverCoroutine == null)
         {
-            Vector3 lerped = Vector3.Lerp(m_startPosition, m_stopTarget, m_travelCounter);
-            transform.position = new Vector3(lerped.x, m_startPosition.y, lerped.z);
-            m_travelCounter += Time.deltaTime / TRAVEL_TIME_SECONDS;
-
-            if (m_travelCounter >= 1f)
-            {
-                m_travelCounter = 0f;
-                reachedTarget = true;
-                StartCoroutine(WaitDeliver());
-            }
-
-            yield return new WaitForFixedUpdate();
+            m_deliverCoroutine = StartCoroutine(WaitDeliver(m_endTarget));
         }
     }
 
-    IEnumerator WaitDeliver()
+    protected virtual void OnReachedEnd()
     {
-        yield return new WaitForSeconds(DROP_OFF_TIME_SECONDS);
-        StartCoroutine(MoveVehicleToEnd());
-    }
-
-    IEnumerator MoveVehicleToEnd()
-    {
-        bool reachedTarget = false;
-        while(!reachedTarget)
-        {
-            Vector3 lerped = Vector3.Lerp(m_stopTarget, m_endTarget, m_travelCounter);
-            transform.position = new Vector3(lerped.x, m_startPosition.y, lerped.z);
-            m_travelCounter += Time.deltaTime / TRAVEL_TIME_SECONDS;
-
-            if (m_travelCounter >= 1f)
-            {
-                reachedTarget = true;
-            }
-
-            yield return new WaitForFixedUpdate();
-        }
-
         OnVehicleFinished?.Invoke(this.gameObject);
     }
 }
