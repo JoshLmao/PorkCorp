@@ -24,6 +24,20 @@ public class FabricatorManager : MonoBehaviour
     MoneyManager m_moneyManager = null;
     HousingManager m_housingManager = null;
 
+    [SerializeField]
+    GameObject[] m_fabricatorPrefabs;
+
+    [SerializeField]
+    Transform m_fabricatorParent;
+
+    [SerializeField]
+    GameObject[] m_pigPrefabs;
+
+    [SerializeField]
+    Transform m_pigParent;
+
+    FabricatorController m_currentFabricator = null;
+
     bool m_isRecharging = false;
     /// <summary>
     /// The amount to increment every tick when recharging the fabricator charge
@@ -65,14 +79,16 @@ public class FabricatorManager : MonoBehaviour
             (x, y) => x.Value.GetComponent<HouseController>().CurrentCapacity < y.Value.GetComponent<HouseController>().CurrentCapacity ? x : y
             ).Value.GetComponent<HouseController>();
 
-        if (lowestHouse != null)
-        {
-            lowestHouse.AddPigs(1);
-        }
-        else
-        {
-            Debug.Log("Unable to find lowest house to add pig");
-        }
+        SpawnPig(lowestHouse.GetComponent<HouseController>().GetWalkToPosition());
+
+        //if (lowestHouse != null)
+        //{
+        //    lowestHouse.AddPigs(1);
+        //}
+        //else
+        //{
+        //    Debug.Log("Unable to find lowest house to add pig");
+        //}
     }
 
     public void IncrementMaxCharge(double amount)
@@ -103,5 +119,34 @@ public class FabricatorManager : MonoBehaviour
         ChargeCapacity = chargeCapacity;
 
         m_isRecharging = charge < ChargeCapacity;
+    }
+
+    void SpawnPig(Transform target)
+    {
+        if (target == null)
+        {
+            Debug.Log("Unable to spawn pig to target. Transform is null");
+            return;
+        }
+
+        GameObject pig = Instantiate(m_pigPrefabs[0], m_pigParent);
+        PigController pigController = pig.GetComponent<PigController>();
+        pigController.SetTargetPosition(target);
+
+        pigController.transform.position = m_currentFabricator.GetSpawnLocation().position;
+    }
+
+    public void SetMeatLevel(MeatLevel level)
+    {
+        GameObject fabPrefab = m_fabricatorPrefabs.FirstOrDefault(x => x.GetComponent<FabricatorController>().Level == level);
+        if (fabPrefab != null)
+        {
+            GameObject instFabricator = Instantiate(fabPrefab, m_fabricatorParent);
+            m_currentFabricator = instFabricator.GetComponent<FabricatorController>();
+        }
+        else
+        {
+            Debug.Log($"Unable to find Fabricator prefab for level {level}");
+        }
     }
 }

@@ -46,6 +46,8 @@ public class ApplicationController : MonoBehaviour
             m_distributionManager.SetVehicles(vehicles);
             m_researchManager.SetResearch(researches);
 
+            m_fabricatorManager.SetMeatLevel(saveFile.Level);
+
             if (saveFile.FabricatorCapacity > 0f && saveFile.FabricatorMaxCapacity > 0f)
             {
                 m_fabricatorManager.SetChargeAndCapacity(saveFile.FabricatorCapacity, saveFile.FabricatorMaxCapacity);
@@ -65,6 +67,7 @@ public class ApplicationController : MonoBehaviour
             m_housingManager.AddNewStartHouses();
             m_distributionManager.SetVehicles(null);
 
+            m_fabricatorManager.SetMeatLevel(MeatLevel.Standard);
             m_fabricatorManager.SetChargeAndCapacity(10f, 10f);
         }
     }

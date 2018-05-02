@@ -9,4 +9,6 @@ public class SaveFileDto
 
     public float FabricatorCapacity { get; set; }
     public float FabricatorMaxCapacity { get; set; }
+
+    public MeatLevel Level { get; set; }
 }

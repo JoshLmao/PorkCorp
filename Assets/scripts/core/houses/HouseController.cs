@@ -30,6 +30,9 @@ public class HouseController : MonoBehaviour
     public double PigsPerSecond { get; set; }
     public IHouse HouseInfo { get; private set; }
 
+    [SerializeField]
+    Transform m_npcWalkToPosition;
+
     MoneyManager m_moneyManager = null;
 
     /// <summary>
@@ -90,5 +93,12 @@ public class HouseController : MonoBehaviour
     public void SetInfo(IHouse houseInfo)
     {
         HouseInfo = houseInfo;
+    }
+
+    public Transform GetWalkToPosition()
+    {
+        if (m_npcWalkToPosition == null)
+            Debug.LogError($"WalkToPosition hasn't been set on Prefab {HouseInfo.Name}");
+        return m_npcWalkToPosition;
     }
 }
