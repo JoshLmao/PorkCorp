@@ -80,15 +80,6 @@ public class FabricatorManager : MonoBehaviour
             ).Value.GetComponent<HouseController>();
 
         SpawnPig(lowestHouse.GetComponent<HouseController>().GetWalkToPosition());
-
-        //if (lowestHouse != null)
-        //{
-        //    lowestHouse.AddPigs(1);
-        //}
-        //else
-        //{
-        //    Debug.Log("Unable to find lowest house to add pig");
-        //}
     }
 
     public void IncrementMaxCharge(double amount)

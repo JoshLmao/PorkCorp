@@ -12,7 +12,14 @@ public class HousingManager : MonoBehaviour
         new LargeShed(),
         new Bungalow(),
         new Detatched(),
-        new Mansion(),
+        new PorkHouse(),
+        new Library(),
+        new SmallTower(),
+        new Hangar(),
+        new OinkTower(),
+        new Pigosseum(),
+        new ThePorkopolis(),
+        new Virtualization(),
     };
 
     public Dictionary<int, GameObject> BoughtHouses { get; private set; }

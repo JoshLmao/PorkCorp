@@ -40,6 +40,7 @@ public class BuyHouseUIController : ListUIBase
 
         BuyHouseUserControl uc = entry.GetComponent<BuyHouseUserControl>();
         uc.Name = house.Name;
+        uc.Capacity = house.BaseTotalCapacity;
         uc.Cost = house.BaseCost;
         uc.DataContext = house;
         uc.OnBuyHouse += OnBuyHouse;

@@ -9,7 +9,7 @@ public class Estate : ISellVehicle
     public GameObject Prefab { get { return null; } }
 
     public string Name { get { return NAME; } }
-    public double SellRate { get { return 1.0; } }
+    public double SellRate { get { return VehicleSellConstants.ESTATE_BASE_SELL_VALUE; } }
     public double Cost { get { return 100.0; } }
     public int VehicleIndex { get; set; }
 

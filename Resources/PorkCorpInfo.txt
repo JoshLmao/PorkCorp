@@ -1,0 +1,27 @@
+Vehicles
+1. Estate
+2. Van
+3. Bus
+4. Double Decker
+5. Truck
+6. Double Semi Truck
+7. Levitating Truck 
+8. Levitating Double Semi
+9. Stacked Semi
+10. Double Stacked Semi
+
+Houses
+1. Sty
+2. Large Shed
+3. Bungalow
+4. Detatched
+5. Pork-house (Warehouse)
+6. Library
+7. Small Tower 
+8. Hangar
+9. Oink-Tower (Trump Tower)
+10. Pig-osseum (Colosseum, Italy) 
+11. The Pork-ropolis (Acropolis, Athens)
+12. "Virtualization" - Virtualize pigs to micro scale to get the most out of your storage
+
+(18)
