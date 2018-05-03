@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -33,6 +34,9 @@ public class MoneyManager : MonoBehaviour
         set { m_researchUniqueMultiplier = value; }
     }
 
+    HousingManager m_housingManager;
+    DistributionManager m_distributionManager;
+
     public MoneyManager()
     {
         Money = 0;
@@ -42,15 +46,28 @@ public class MoneyManager : MonoBehaviour
 
     private void Awake()
     {
+        m_housingManager = FindObjectOfType<HousingManager>();
+        m_distributionManager = FindObjectOfType<DistributionManager>();
     }
 
     private void Start()
     {
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
-        
+        UpdateMoney();
+    }
+
+    void UpdateMoney()
+    {
+        double totalVehicleSellRate = m_distributionManager.BoughtVehicles.Sum(x => x.SellRate);
+        int totalCurrentPigs = m_housingManager.GetCurrentPigsAmount();
+
+        double totalRawAmount = SellValue * totalCurrentPigs;
+        double amountPerTick = totalRawAmount * Time.fixedDeltaTime;
+        double amountToAdd = totalRawAmount * amountPerTick;
+        AddAmount(amountToAdd);
     }
 
     public void AddAmount(float amount)

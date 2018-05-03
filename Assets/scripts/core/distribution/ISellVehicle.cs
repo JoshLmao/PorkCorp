@@ -18,11 +18,26 @@ public interface ISellVehicle
     /// </summary>
     int Capacity { get; set; }
     /// <summary>
-    /// Rate it sells pork
+    /// The base sell rate the vehicle sells
     /// </summary>
-    double SellRate { get; }
+    double BaseSellRate { get; }
+    /// <summary>
+    /// The current sell rate
+    /// </summary>
+    double SellRate { get; set; }
     /// <summary>
     /// The unique index of the vehicle. Starts at 0
     /// </summary>
     int VehicleIndex { get; set; }
+
+    /// <summary>
+    /// Increases the capacity of the vehicle by a percentage
+    /// </summary>
+    /// <param name="amount"></param>
+    void IncreaseCapacity(double percent);
+    /// <summary>
+    /// Increases the sell rate by a percentage
+    /// </summary>
+    /// <param name="amount"></param>
+    void IncreaseSellRate(double percent);
 }

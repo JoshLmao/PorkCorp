@@ -1,12 +1,15 @@
 ﻿public abstract class VehicleBase : ISellVehicle
 {
     public abstract string Name { get; }
-    public abstract double SellRate { get; }
     public abstract double Cost { get; }
-    public abstract int BaseCapacity { get; }
 
     public int VehicleIndex { get; set; }
+
+    public abstract int BaseCapacity { get; }
+    public abstract double BaseSellRate { get; }
+
     public int Capacity { get; set; }
+    public double SellRate { get; set; }
 
     public VehicleBase()
     {
@@ -24,8 +27,15 @@
         Capacity = BaseCapacity;
     }
 
-    public virtual void IncreaseCapacity(int amount)
+    public virtual void IncreaseCapacity(double percentValue)
     {
-        Capacity += amount;
+        int incAmount = (int)(Capacity / 100 * percentValue);
+        Capacity += incAmount;
+    }
+
+    public virtual void IncreaseSellRate(double percentValue)
+    {
+        int incAmount = (int)(BaseSellRate / 100 * percentValue);
+        SellRate += incAmount;
     }
 }

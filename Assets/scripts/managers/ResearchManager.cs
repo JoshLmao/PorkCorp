@@ -104,6 +104,12 @@ public class ResearchManager : MonoBehaviour
             case ResearchType.HousingIncreaseCapacity:
                 m_housingManager.IncreaseCapacitiesByPercent(research.ModifyValue);
                 break;
+            case ResearchType.HousingIncreasePassiveBreedRate:
+                m_housingManager.IncreasePassiveBreedAmounts((int)research.ModifyValue);
+                break;
+            case ResearchType.HousingLayInterval:
+                m_housingManager.DecreaseLayIntervals(research.ModifyValue);
+                break;
             //Distribution Researches
             case ResearchType.DistributionVehicleCapacity:
                 m_distributionManager.IncreaseVehicleCapacity((int)research.ModifyValue);

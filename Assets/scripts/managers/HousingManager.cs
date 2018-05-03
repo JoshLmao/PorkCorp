@@ -115,19 +115,6 @@ public class HousingManager : MonoBehaviour
         }
     }
 
-    public void IncreaseCapacitiesByPercent(double percentageValue)
-    {
-        foreach(KeyValuePair<int, GameObject> kvp in BoughtHouses)
-        {
-            IHouse houseInfo = kvp.Value.GetComponent<HouseController>().HouseInfo;
-            if(houseInfo != null)
-            {
-                int amountToIncrease = (int)(houseInfo.TotalCapacity / percentageValue);
-                houseInfo.IncreaseTotalCapacity(amountToIncrease);
-            }
-        }
-    }
-
     public void AddHouse(IHouse upgradeToHouse)
     {
         List<IHouse> houses = BoughtHouses.Values.Select(x => x.GetComponent<HouseController>().HouseInfo).ToList();
@@ -174,5 +161,51 @@ public class HousingManager : MonoBehaviour
         Vector3 newHousePos = new Vector3(prevHousePos.x + (prevHouseWidth / 2) + m_paddingWidth + (newHouseWidth / 2), prevHousePos.y, prevHousePos.z);
 
         return newHousePos;
+    }
+
+    /// <summary>
+    /// Gets the total number of pigs inside each house at time of call (doesn't include pigs in transit)
+    /// </summary>
+    /// <returns></returns>
+    public int GetCurrentPigsAmount()
+    {
+        return BoughtHouses.Sum(gameObj => gameObj.Value.GetComponent<HouseController>().CurrentCapacity);
+    }
+
+    public void IncreaseCapacitiesByPercent(double percentageValue)
+    {
+        foreach (KeyValuePair<int, GameObject> kvp in BoughtHouses)
+        {
+            IHouse houseInfo = kvp.Value.GetComponent<HouseController>().HouseInfo;
+            if (houseInfo != null)
+            {
+                int amountToIncrease = (int)(houseInfo.TotalCapacity / percentageValue);
+                houseInfo.IncreaseTotalCapacity(amountToIncrease);
+            }
+        }
+    }
+
+    /// <summary>
+    /// Decreases all the lay intervals for all bought houses
+    /// </summary>
+    /// <param name="percentValue"></param>
+    public void DecreaseLayIntervals(double percentValue)
+    {
+        foreach(KeyValuePair<int, GameObject> kvp in BoughtHouses)
+        {
+            kvp.Value.GetComponent<HouseController>().DecreasePassivePigRate(percentValue);
+        }
+    }
+
+    /// <summary>
+    /// Increases all passive breed amounts for all bought houses
+    /// </summary>
+    /// <param name="amount"></param>
+    public void IncreasePassiveBreedAmounts(int amount)
+    {
+        foreach(KeyValuePair<int, GameObject> kvp in BoughtHouses)
+        {
+            kvp.Value.GetComponent<HouseController>().IncreasePassiveBreedAmount(amount);
+        }
     }
 }

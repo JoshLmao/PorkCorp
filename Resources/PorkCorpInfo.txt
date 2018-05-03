@@ -23,5 +23,31 @@ Houses
 10. Pig-osseum (Colosseum, Italy) 
 11. The Pork-ropolis (Acropolis, Athens)
 12. "Virtualization" - Virtualize pigs to micro scale to get the most out of your storage
+//(18)
 
-(18)
+Researches
+Tier 1:
+Increase Lay Rate - Increase the lay rate by %
+Value Research - Increases pork value by 25%
+Fabricator Research - Increases fabricator recharge
+??? Click bonus
+
+Tier 2:
+Increase Lay Rate - Increase the lay rate by %
+House Expansion - Expand house by %
+Increase Vehicle Limit - Increase vehicle limit by 1
+Double Value - Double Value of pork
+
+Tier 3:
+Increase Vehicle Sell Rate - Increase Sell rate of all vehicles by %
+Increase Vehicle Capacity - Increase vehicle capacity by %
+Increase House Lay Rate - Increase the lay rate of all houses by %
+
+Tier 4:
+
+
+Tier 5:
+
+
+Tier 6:
+

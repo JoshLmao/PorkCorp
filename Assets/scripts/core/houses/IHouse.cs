@@ -1,8 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public interface IHouse
+﻿public interface IHouse
 {
     /// <summary>
     /// The unique name of the house
@@ -24,10 +20,20 @@ public interface IHouse
     /// The number of pigs currently inside this house
     /// </summary>
     int CurrentCapacity { get; set; }
+    
     /// <summary>
-    /// The rate that the pigs will breed at in this house
+    /// The amount of pigs to be created every elapse
     /// </summary>
-    double PigsPerSecond { get; set; }
+    int PassiveBreedAmount { get; set; }
+    /// <summary>
+    /// The milliseconds interval between adding passive breeding
+    /// </summary>
+    double BasePassiveBreedInterval { get; }
+    /// <summary>
+    /// The current breed interval
+    /// </summary>
+    double CurrentPassiveBreedInterval { get; set; }
+
     int HouseIndex { get; set; }
 
     void IncreaseTotalCapacity(int amount);

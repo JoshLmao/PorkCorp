@@ -27,13 +27,13 @@ public class HouseController : MonoBehaviour
         }
     }
 
-    public double PigsPerSecond { get; set; }
     public IHouse HouseInfo { get; private set; }
 
     [SerializeField]
     Transform m_npcWalkToPosition;
 
     MoneyManager m_moneyManager = null;
+    Timer m_passiveBreedTimer;
 
     /// <summary>
     /// The duration in seconds for pigs to breed at and create child pigs
@@ -48,6 +48,10 @@ public class HouseController : MonoBehaviour
     protected virtual void Start()
     {
         m_moneyManager = FindObjectOfType<MoneyManager>();
+
+        m_passiveBreedTimer = new Timer(HouseInfo.BasePassiveBreedInterval);
+        m_passiveBreedTimer.Elapsed += OnBreedPigsElapsed;
+        m_passiveBreedTimer.Start();
     }
 
     protected virtual void Update()
@@ -56,37 +60,24 @@ public class HouseController : MonoBehaviour
 
     protected virtual void FixedUpdate()
     {
-        if(CurrentCapacity > 0)
-        {
-            m_moneyManager.AddAmount(GetAmount());
-        }
     }
 
     private void OnBreedPigsElapsed(object sender, ElapsedEventArgs e)
     {
-        if(PigsPerSecond > 0.0)
+        if (HouseInfo != null)
         {
-            //if(CurrentCapacity + (int)PigsPerSecond <= TotalCapacity)
-            //    CurrentCapacity += (int)PigsPerSecond;
+            CurrentCapacity += HouseInfo.PassiveBreedAmount;
         }
     }
 
     public virtual void AddPigs(int amount)
     {
         CurrentCapacity += amount;
-
-        UpdateBreedRate();
-    }
-
-    void UpdateBreedRate()
-    {
-        //Increment breed rate by making one child per pair
-        int pairs = CurrentCapacity % 2 == 1 ? CurrentCapacity - 1 : CurrentCapacity;
-        PigsPerSecond = pairs / 2;
     }
 
     double GetAmount()
     {
+        Debug.Log(Time.fixedDeltaTime);
         return m_moneyManager.SellValue * (CurrentCapacity * Time.fixedDeltaTime);
     }
 
@@ -100,5 +91,22 @@ public class HouseController : MonoBehaviour
         if (m_npcWalkToPosition == null)
             Debug.LogError($"WalkToPosition hasn't been set on Prefab {HouseInfo.Name}");
         return m_npcWalkToPosition;
+    }
+
+    public void DecreasePassivePigRate(double percentValue)
+    {
+        if(m_passiveBreedTimer != null)
+        {
+            double newInterval = HouseInfo.CurrentPassiveBreedInterval / 1000 * percentValue;
+
+            m_passiveBreedTimer.Stop();
+            m_passiveBreedTimer.Interval = newInterval;
+            m_passiveBreedTimer.Start();
+        }
+    }
+
+    public void IncreasePassiveBreedAmount(int amount)
+    {
+        HouseInfo.PassiveBreedAmount += amount;
     }
 }

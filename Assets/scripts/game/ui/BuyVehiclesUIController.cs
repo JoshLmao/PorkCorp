@@ -32,7 +32,7 @@ public class BuyVehiclesUIController : ListUIBase
         uc.DataContext = vehicle;
 
         uc.VehicleName = vehicle.Name;
-        uc.SellRatePerMinute = vehicle.SellRate.ToString();
+        uc.SellRatePerMinute = vehicle.BaseSellRate.ToString();
         uc.IconSprite = null;
 
         uc.OnBuyVehicle += OnBuyVehicle;

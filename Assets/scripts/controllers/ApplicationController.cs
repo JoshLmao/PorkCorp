@@ -44,7 +44,6 @@ public class ApplicationController : MonoBehaviour
 
             m_housingManager.SetBoughtHouses(houses);
             m_distributionManager.SetVehicles(vehicles);
-            m_researchManager.SetResearch(researches);
 
             m_fabricatorManager.SetMeatLevel(saveFile.Level);
 
@@ -57,6 +56,9 @@ public class ApplicationController : MonoBehaviour
                 Debug.LogError("Unable to set Fabricator Charge & ChargeCapacity. Saved values are less than 0");
                 m_fabricatorManager.SetChargeAndCapacity(10f, 10f);
             }
+
+            //Set researches last after applying all other values
+            m_researchManager.SetResearch(researches);
         }
         else
         {

@@ -49,7 +49,7 @@ public class BoughtVehiclesUIController : ListUIBase
         uc.IsBought = foundVehicle != null;
         uc.VehicleName = foundVehicle != null ? foundVehicle.Name : "?";
         uc.IconSprite = null;
-        uc.SellRatePerMinute = foundVehicle != null ? foundVehicle.SellRate.ToString() : "0.0";
+        uc.SellRatePerMinute = foundVehicle != null ? foundVehicle.BaseSellRate.ToString() : "0.0";
 
         uc.OnHireButtonClicked += OnHireNewVehicleBtnClicked;
         uc.OnUpgradeBtnClicked += OnUpgradeBtnClicked;

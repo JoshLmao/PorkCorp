@@ -29,9 +29,13 @@ public enum ResearchType
     /// </summary>
     HousingIncreaseCapacity,
     /// <summary>
-    /// Increase the lay rate of all houses by percentage (number between 0 - 100)
+    /// Increase the lay interval of all houses by percentage (number between 0 - 100)
     /// </summary>
-    HousingLayRate,
+    HousingLayInterval,
+    /// <summary>
+    /// Increases the passive breed rate by a number
+    /// </summary>
+    HousingIncreasePassiveBreedRate,
 
     /// <summary>
     /// Increases the capacity of all vehicles (number between 0 - 100)
