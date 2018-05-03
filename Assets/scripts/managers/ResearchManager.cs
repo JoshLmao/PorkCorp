@@ -108,6 +108,9 @@ public class ResearchManager : MonoBehaviour
             case ResearchType.DistributionVehicleCapacity:
                 m_distributionManager.IncreaseVehicleCapacity((int)research.ModifyValue);
                 break;
+            case ResearchType.DistributionVehicleSellRate:
+                m_distributionManager.IncreaseVehicleSellRates((int)research.ModifyValue);
+                break;
             case ResearchType.DistributionVehicleLimit:
                 m_distributionManager.IncreaseVehicleLimit((int)research.ModifyValue);
                 break;

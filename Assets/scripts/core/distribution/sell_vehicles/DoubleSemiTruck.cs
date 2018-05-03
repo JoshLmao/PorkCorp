@@ -1,26 +1,15 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class DoubleSemiTruck : ISellVehicle
+﻿public class DoubleSemiTruck : VehicleBase
 {
     public static string NAME { get { return "DoubleSemiTruck"; } }
 
-    public GameObject Prefab { get { return null; } }
+    public override string Name { get { return NAME; } }
+    public override double SellRate { get { return VehicleSellConstants.DOUBLE_SEMI_TRUCK_BASE_SELL_VALUE; } }
+    public override double Cost { get { return 100.0; } }
+    public override int BaseCapacity { get { return 1; } }
 
-    public string Name { get { return NAME; } }
-    public double SellRate { get { return VehicleSellConstants.DOUBLE_SEMI_TRUCK_BASE_SELL_VALUE; } }
-    public double Cost { get { return 100.0; } }
-    public int VehicleIndex { get; set; }
-
-    public DoubleSemiTruck()
+    public DoubleSemiTruck(int index) : base(index)
     {
 
-    }
-
-    public DoubleSemiTruck(int index)
-    {
-        VehicleIndex = index;
     }
 }
 

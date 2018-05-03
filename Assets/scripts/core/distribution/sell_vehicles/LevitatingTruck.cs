@@ -1,25 +1,14 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class LevitatingTruck : ISellVehicle
+﻿public class LevitatingTruck : VehicleBase
 {
     public static string NAME { get { return "LevitatingTruck"; } }
 
-    public GameObject Prefab { get { return null; } }
+    public override string Name { get { return NAME; } }
+    public override double SellRate { get { return VehicleSellConstants.LEVITATING_TRUCK_BASE_SELL_VALUE; } }
+    public override double Cost { get { return 100.0; } }
+    public override int BaseCapacity { get { return 1; } }
 
-    public string Name { get { return NAME; } }
-    public double SellRate { get { return VehicleSellConstants.LEVITATING_TRUCK_BASE_SELL_VALUE; } }
-    public double Cost { get { return 100.0; } }
-    public int VehicleIndex { get; set; }
-
-    public LevitatingTruck()
+    public LevitatingTruck(int index) : base(index)
     {
 
-    }
-
-    public LevitatingTruck(int index)
-    {
-        VehicleIndex = index;
     }
 }

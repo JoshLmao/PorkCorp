@@ -10,6 +10,14 @@ public interface ISellVehicle
     double Cost { get; }
     string Name { get; }
     /// <summary>
+    /// The base capacity the vehicle can hold
+    /// </summary>
+    int BaseCapacity { get; }
+    /// <summary>
+    /// The current capacity of the vehicle
+    /// </summary>
+    int Capacity { get; set; }
+    /// <summary>
     /// Rate it sells pork
     /// </summary>
     double SellRate { get; }

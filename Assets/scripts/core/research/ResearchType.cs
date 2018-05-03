@@ -38,8 +38,11 @@ public enum ResearchType
     /// </summary>
     DistributionVehicleCapacity,
     /// <summary>
+    /// Increases the sell rate of all vehicles by percentage (numbetween 0 - 100)
+    /// </summary>
+    DistributionVehicleSellRate,
+    /// <summary>
     /// Increases the limit of vehicles allowed by value
     /// </summary>
     DistributionVehicleLimit,
-    
 }

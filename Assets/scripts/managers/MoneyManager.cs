@@ -40,16 +40,17 @@ public class MoneyManager : MonoBehaviour
         ResearchMultiplier = 1f;
     }
 
-    void Awake()
+    private void Awake()
     {
     }
 
-    void Start()
+    private void Start()
     {
     }
 
-    void Update()
+    private void Update()
     {
+        
     }
 
     public void AddAmount(float amount)

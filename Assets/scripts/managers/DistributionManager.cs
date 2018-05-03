@@ -40,10 +40,7 @@ public class DistributionManager : MonoBehaviour
 
     private void Update ()
     {
-    }
-
-    public void SetStartVehicles()
-    {
+        
     }
 
     public void BuyVehicle(ISellVehicle sellVehicle)
@@ -80,17 +77,27 @@ public class DistributionManager : MonoBehaviour
         VehicleLimit = limit;
     }
 
-    internal void IncreaseVehicleCapacity(int percentageValue)
+    public void IncreaseVehicleCapacity(int percentageValue)
     {
         TotalIncreaseAmountPercent += percentageValue;
         foreach(ISellVehicle vehicle in BoughtVehicles)
         {
-
+            int incrementAmount = (vehicle.Capacity / 100) * percentageValue;
+            vehicle.Capacity += incrementAmount;
         }
     }
 
     public void IncreaseVehicleLimit(int value)
     {
         VehicleLimit += value;
+    }
+
+    public void IncreaseVehicleSellRates(int percentValue)
+    {
+        foreach(ISellVehicle vehicle in BoughtVehicles)
+        {
+            double incSellRateValue = (vehicle.SellRate / 100) * percentValue;
+            //vehicle.SellRate += incSellRateValue;
+        }
     }
 }

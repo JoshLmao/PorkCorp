@@ -2352,7 +2352,7 @@ MonoBehaviour:
   m_listParent: {fileID: 612163111}
   m_uiEntryPrefab: {fileID: 1082833270911554, guid: a4be7949d5f0d8341b05d2b243f99b7b,
     type: 2}
-  m_uiStartLocalYPosition: 100
+  m_uiStartLocalYPosition: 300
   m_uiEntrySpacing: 10
   m_minRectHeight: 275
   m_resizeCanvas: {fileID: 612163111}
