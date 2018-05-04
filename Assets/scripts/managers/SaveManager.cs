@@ -182,4 +182,18 @@ public class SaveManager : MonoBehaviour
             m_saveCoroutine = StartCoroutine(SaveData());
         }
     }
+
+    public void RemoveSaveData()
+    {
+        DeleteFile(m_mainFilePath);
+        DeleteFile(m_vehiclesSavePath);
+        DeleteFile(m_housesSavePath);
+        DeleteFile(m_researchSavePath);
+    }
+
+    void DeleteFile(string path)
+    {
+        if (File.Exists(path))
+            File.Delete(path);
+    }
 }

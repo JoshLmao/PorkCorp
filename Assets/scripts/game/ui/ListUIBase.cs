@@ -28,9 +28,6 @@ public class ListUIBase : UIBase
     protected override void Awake()
     {
         base.Awake();
-
-        if (m_uiEntryPrefab == null)
-            Debug.LogError("List UI entry prefab is null");
     }
 
     protected virtual void Start()

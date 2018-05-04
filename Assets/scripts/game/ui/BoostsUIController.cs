@@ -5,8 +5,8 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
-public class BoostsUIController : MonoBehaviour {
-
+public class BoostsUIController : UIBase
+{
     [SerializeField]
     Button m_showMenuBtn;
 
@@ -21,7 +21,7 @@ public class BoostsUIController : MonoBehaviour {
 
     const string BOOST_BUTTON_ADVERT_ID = "boostAdvert";
 
-    private void Awake()
+    protected override void Awake()
     {
         Advertisement.Initialize("PorkCorp");
 
@@ -32,22 +32,9 @@ public class BoostsUIController : MonoBehaviour {
         this.gameObject.SetActive(false);
     }
 
-    private void Start()
-    {
-    }
-
-    private void Update ()
-    {
-    }
-
-    public void OnShowBoostsMenu()
-    {
-        this.gameObject.SetActive(true);
-    }
-
     public void OnHideBoostsMenu()
     {
-        this.gameObject.SetActive(false);
+        OnSetUI(false);
     }
 
     public void OnShowAdvert()
