@@ -11,8 +11,14 @@ public class TieredListUIBase : ListUIBase
     [SerializeField]
     protected float m_uiTierSpacing = 10f;
 
-    protected virtual void UpdateTieredList(Dictionary<int, int> tiersAndEntryCounts)
+    protected virtual void UpdateTieredList(Dictionary<int, int> tiersAndEntryCounts, bool keepScrollYPos = false)
     {
+        float scrollYPos = 1f;
+        if (keepScrollYPos)
+        {
+            scrollYPos = m_scrollRect.verticalNormalizedPosition;
+        }
+
         DestroyChildren(m_listParent);
 
         SetRectHeight(m_minRectHeight);
@@ -49,19 +55,11 @@ public class TieredListUIBase : ListUIBase
         }
 
         SetRectHeight(newCanvasHeight);
-        SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
+        SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>(), scrollYPos);
     }
 
     protected virtual void EntryAdded(GameObject entry, int tier, int order)
     {
 
-    }
-
-    void SetScrollRect(ScrollRect rect)
-    {
-        if (rect != null)
-        {
-            rect.verticalNormalizedPosition = 1f;
-        }
     }
 }

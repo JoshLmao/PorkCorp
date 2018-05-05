@@ -23,7 +23,12 @@ public class ListUIBase : UIBase
     [SerializeField]
     protected RectTransform m_resizeCanvas;
 
+    [SerializeField]
+    protected ScrollRect m_scrollRect;
+
     protected List<GameObject> m_uiEntries = null;
+
+    float m_lastScrollYPosition = 0f;
 
     protected override void Awake()
     {
@@ -38,8 +43,12 @@ public class ListUIBase : UIBase
     {
     }
 
-    protected virtual void UpdateList(int entryCount)
+    protected virtual void UpdateList(int entryCount, bool keepScrollYPos = false)
     {
+        float scrollYPos = 1f;
+        if (keepScrollYPos)
+            scrollYPos = m_scrollRect.verticalNormalizedPosition;
+
         DestroyChildren(m_listParent);
         //Workaround: Set height to min to position all correctly
         SetRectHeight(m_minRectHeight);
@@ -65,7 +74,7 @@ public class ListUIBase : UIBase
         }
 
         SetRectHeight(newCanvasHeight);
-        SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
+        SetScrollRect(m_scrollRect, scrollYPos);
     }
 
     protected virtual void EntryAdded(GameObject entry, int index)
@@ -98,15 +107,15 @@ public class ListUIBase : UIBase
 
         if (status)
         {
-            SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>());
+            SetScrollRect(m_resizeCanvas.GetComponentInParent<ScrollRect>(), 1f);
         }
     }
 
-    void SetScrollRect(ScrollRect rect)
+    protected void SetScrollRect(ScrollRect rect, float position)
     {
         if (rect != null)
         {
-            rect.verticalNormalizedPosition = 1f;
+            rect.verticalNormalizedPosition = position;
         }
     }
 }

@@ -61,7 +61,7 @@ public class ResearchUIController : TieredListUIBase
             }
         }
 
-        UpdateTieredList(tierAndEntryCount);
+        UpdateTieredList(tierAndEntryCount, true);
     }
 
     /// <summary>
