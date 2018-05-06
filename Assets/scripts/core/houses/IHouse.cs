@@ -20,6 +20,10 @@
     /// The number of pigs currently inside this house
     /// </summary>
     int CurrentCapacity { get; set; }
+    /// <summary>
+    /// The amount of pigs currently in transit to the house
+    /// </summary>
+    int TransitCount { get; set; }
     
     /// <summary>
     /// The amount of pigs to be created every elapse

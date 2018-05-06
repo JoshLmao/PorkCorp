@@ -40,7 +40,9 @@ public class PigController : MonoBehaviour
     {
         if (collider.isTrigger && collider.tag == TagConstants.HOUSE_TRIGGER_TAG)
         {
-            collider.gameObject.GetComponentInParent<HouseController>().AddPigs(1);
+            HouseController houseController = collider.gameObject.GetComponentInParent<HouseController>();
+            houseController.RemoveTransit(1);
+            houseController.AddPigs(1);
             Destroy(this.gameObject);
         }
     }
