@@ -7,8 +7,7 @@ using UnityEngine;
 public class HouseController : MonoBehaviour
 {
     public string Name { get { return this.name; } }
-
-    public int TotalCapacity { get { return HouseInfo.TotalCapacity; } }
+   
     public int HouseIndex
     {
         get { return HouseInfo.HouseIndex; }
@@ -24,6 +23,20 @@ public class HouseController : MonoBehaviour
         {
             m_currentCapacity = value;
             HouseInfo.CurrentCapacity = value;
+        }
+    }
+
+    public int TotalCapacity { get { return HouseInfo.TotalCapacity; } }
+
+    [SerializeField]
+    private int m_transitCount;
+    public int TransitCount 
+    {
+        get { return HouseInfo.TransitCount; }
+        set
+        {
+            m_transitCount = value;
+            HouseInfo.TransitCount = value;
         }
     }
 
@@ -108,5 +121,16 @@ public class HouseController : MonoBehaviour
     public void IncreasePassiveBreedAmount(int amount)
     {
         HouseInfo.PassiveBreedAmount += amount;
+    }
+
+    public void AddTransit(int amount)
+    {
+        TransitCount += amount;    
+    }
+
+    public void RemoveTransit(int amount)
+    {
+        if (TransitCount > 0)
+            TransitCount -= amount;
     }
 }

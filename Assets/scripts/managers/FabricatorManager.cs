@@ -63,7 +63,7 @@ public class FabricatorManager : MonoBehaviour
             if (Charge >= ChargeCapacity)
                 m_isRecharging = false;
             else
-                Charge += m_rechargeTickAmount;
+                Charge += m_rechargeTickAmount * 1000;
         }
     }
 
@@ -75,11 +75,12 @@ public class FabricatorManager : MonoBehaviour
         DecreaseCharge();
 
         //Find the house for the pig to go to and increment
-        HouseController lowestHouse = m_housingManager.BoughtHouses.Aggregate(
-            (x, y) => x.Value.GetComponent<HouseController>().CurrentCapacity < y.Value.GetComponent<HouseController>().CurrentCapacity ? x : y
-            ).Value.GetComponent<HouseController>();
-
-        SpawnPig(lowestHouse.GetComponent<HouseController>().GetWalkToPosition());
+        HouseController lowestHouse = GetLowestHouse();
+        if(lowestHouse != null)
+        {
+            SpawnPig(lowestHouse.GetWalkToPosition());
+            lowestHouse.AddTransit(1);
+        }
     }
 
     public void IncrementMaxCharge(double amount)
@@ -139,5 +140,26 @@ public class FabricatorManager : MonoBehaviour
         {
             Debug.Log($"Unable to find Fabricator prefab for level {level}");
         }
+    }
+
+    /// <summary>
+    /// Gets the lowest house that a pig should be sent to. Will return null if pig shouldn't be created
+    /// </summary>
+    /// <returns>The lowest house or null</returns>
+    HouseController GetLowestHouse()
+    {
+        HouseController house = null;
+        foreach(KeyValuePair<int, GameObject> kvp in m_housingManager.BoughtHouses)
+        {
+            HouseController currentHouse = kvp.Value.GetComponent<HouseController>();
+            if (currentHouse.CurrentCapacity + currentHouse.TransitCount < currentHouse.TotalCapacity)
+                house = currentHouse;
+        }
+         
+        return house;
+
+        /*m_housingManager.BoughtHouses.Aggregate(
+            (x, y) => x.Value.GetComponent<HouseController>().CurrentCapacity < y.Value.GetComponent<HouseController>().CurrentCapacity ? x : y
+        ).Value.GetComponent<HouseController>();*/
     }
 }

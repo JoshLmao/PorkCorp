@@ -16,6 +16,7 @@ public abstract class HouseBase : IHouse
 
     public int TotalCapacity { get; set; }
     public int CurrentCapacity { get; set; }
+    public int TransitCount { get; set; }
     public double CurrentPassiveBreedInterval { get; set; }
 
     public int PassiveBreedAmount { get; set; }
