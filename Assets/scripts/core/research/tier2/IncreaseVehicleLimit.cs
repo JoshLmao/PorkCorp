@@ -8,7 +8,7 @@ public class IncreaseVehicleLimit : ResearchBase
 
     public override string Name { get { return NAME; } }
     public override string Description { get { return $"Increases vehicles limit by {ModifyValue}!"; } }
-    public override double Cost { get { return 5.0; } }
+    public override double BaseCost { get { return 5.0; } }
 
     public override ResearchType Type { get { return ResearchType.DistributionVehicleLimit; } }
     public override double ModifyValue { get { return 1.0; } }

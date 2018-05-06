@@ -8,8 +8,8 @@ public class ValueResearch : ResearchBase
     public static string NAME { get { return "Increase Value"; } }
 
     public override string Name { get { return NAME; } }
-    public override string Description { get { return "Increase pork value by 25%"; } }
-    public override double Cost { get { return 0.40; } }
+    public override string Description { get { return $"Increase pork value by {ModifyValue * 100}%"; } }
+    public override double BaseCost { get { return 0.40; } }
 
     public override ResearchType Type { get { return ResearchType.MoneyIncreaseValue; } }
     public override double ModifyValue { get { return 0.25; } }

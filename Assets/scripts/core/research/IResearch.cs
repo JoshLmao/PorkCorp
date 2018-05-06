@@ -30,10 +30,11 @@ public interface IResearch
     /// The type of research this is. Sets where the modify value is sent to
     /// </summary>
     ResearchType Type { get; }
+    double BaseCost { get; }
     /// <summary>
     /// The cost in currency to buy the research
     /// </summary>
-    double Cost { get; }
+    double Cost { get; set; }
 
     /// <summary>
     /// The number of times this research has been bought
